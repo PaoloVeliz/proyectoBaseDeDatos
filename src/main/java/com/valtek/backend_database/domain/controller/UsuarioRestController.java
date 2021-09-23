@@ -12,6 +12,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/usuarios")
 public class UsuarioRestController {
+
     private final UsuarioService usuarioService;
 
     public UsuarioRestController(UsuarioService usuarioService) {
@@ -19,12 +20,13 @@ public class UsuarioRestController {
     }
 
     @GetMapping("/")
-    List<Usuario> get() {
+    List<Usuario> getUsers() {
         return usuarioService.getAllUsers();
     }
 
     @PostMapping("/")
     ResponseEntity<Usuario> newUser(@RequestBody Usuario user) {
+        System.out.println(user.toString());
         return new ResponseEntity<>(usuarioService.createOneUser(user), HttpStatus.CREATED);
     }
 }
