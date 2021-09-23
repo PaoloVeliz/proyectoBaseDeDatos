@@ -16,25 +16,27 @@ import java.util.List;
 @Service
 public class UsuarioService {
     private final Log LOG = LogFactory.getLog(UsuarioService.class);
-    private UsuarioRepository usuarioRepository;
+    private final UsuarioRepository usuarioRepository;
     private DetalleUsuarioRepository detalleUsuarioRepository;
     private TelefonoRepository telefonoRepository;
 
-    public UsuarioService(){}
-
-    public UsuarioService(UsuarioRepository usuarioRepository, DetalleUsuarioRepository detalleUsuarioRepository, TelefonoRepository telefonoRepository){
+    public UsuarioService(UsuarioRepository usuarioRepository){
         this.usuarioRepository = usuarioRepository;
-        this.detalleUsuarioRepository = detalleUsuarioRepository;
-        this.telefonoRepository = telefonoRepository;
     }
 
     @Transactional
-    public void saveAUser(Usuario usuario, DetalleUsuario detalleUsuario, List<Telefono> telefonos){
-        usuarioRepository.save(usuario);
+    public Usuario saveAUser(Usuario usuario, DetalleUsuario detalleUsuario, List<Telefono> telefonos){
+
         detalleUsuarioRepository.save(detalleUsuario);
         telefonos.stream()
                 .peek(telefono -> LOG.info("telefono agregado " + telefono))
                 .forEach(telefono -> telefonoRepository.save(telefono));
+        return usuarioRepository.save(usuario);
+    }
+
+    public Usuario createOneUser(Usuario usuario){
+
+        return usuarioRepository.save(usuario);
     }
 
     public List<Usuario> getAllUsers(){

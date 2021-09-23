@@ -1,26 +1,30 @@
 package com.valtek.backend_database.domain.controller;
 
-import com.valtek.backend_database.persistence.component.caseuse.user.GetUser;
 import com.valtek.backend_database.persistence.entity.Usuario;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.valtek.backend_database.persistence.service.UsuarioService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
-@RequestMapping("/api/usuarios")
+@RequestMapping("/usuarios")
 public class UsuarioRestController {
-    private GetUser getUser;
+    private final UsuarioService usuarioService;
 
-    public UsuarioRestController(){}
-
-    public UsuarioRestController(GetUser getUser) {
-        this.getUser = getUser;
+    public UsuarioRestController(UsuarioService usuarioService) {
+        this.usuarioService = usuarioService;
     }
 
     @GetMapping("/")
-    List<Usuario> get(){
-     return getUser.getAll();
+    List<Usuario> get() {
+        return usuarioService.getAllUsers();
+    }
+
+    @PostMapping("/")
+    ResponseEntity<Usuario> newUser(@RequestBody Usuario user) {
+        return new ResponseEntity<>(usuarioService.createOneUser(user), HttpStatus.CREATED);
     }
 }

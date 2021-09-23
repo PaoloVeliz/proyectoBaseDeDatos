@@ -6,7 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "user", schema = "public")
+@Table(name = "user")
 public class Usuario {
     @Id
     @Column(name = "username")
@@ -38,5 +38,11 @@ public class Usuario {
         this.contrasena = contrasena;
     }
 
-
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "nombreUsuario='" + nombreUsuario + '\'' +
+                ", contrasena='" + contrasena + '\'' +
+                '}';
+    }
 }
