@@ -11,6 +11,7 @@ import java.util.Optional;
 
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario,String> {
+
     @Query("Select u from Usuario u WHERE u.nombreUsuario = ?1 ")
     Optional<Usuario> findByusername(String nombreUsuario);
 
@@ -18,6 +19,4 @@ public interface UsuarioRepository extends JpaRepository<Usuario,String> {
     List<Usuario> findAndSort(String nombreUsuario, TypeCache.Sort Sort);
 
     List<Usuario> findBynombreUsuario(String nombreUsuario);
-
-
 }

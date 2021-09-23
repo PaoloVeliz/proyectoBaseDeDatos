@@ -38,7 +38,7 @@ public class VentaService {
 
     public void deleteSale(String id){
         ventaRepository.deleteById(id);
-        detalleVentasRepository.deleteById(detalleVentasRepository.findByentasId(id).getId());
+        detalleVentasRepository.deleteById(detalleVentasRepository.findByventasId(id).getId());
     }
 
     public Venta updateSale(Venta newSale, String id) {

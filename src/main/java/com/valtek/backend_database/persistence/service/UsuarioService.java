@@ -8,6 +8,7 @@ import com.valtek.backend_database.domain.repository.TelefonoRepository;
 import com.valtek.backend_database.domain.repository.UsuarioRepository;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -15,26 +16,28 @@ import java.util.List;
 
 @Service
 public class UsuarioService {
+
     private final Log LOG = LogFactory.getLog(UsuarioService.class);
+
+    @Autowired
     private UsuarioRepository usuarioRepository;
+
     private DetalleUsuarioRepository detalleUsuarioRepository;
     private TelefonoRepository telefonoRepository;
 
-    public UsuarioService(){}
-
-    public UsuarioService(UsuarioRepository usuarioRepository, DetalleUsuarioRepository detalleUsuarioRepository, TelefonoRepository telefonoRepository){
-        this.usuarioRepository = usuarioRepository;
-        this.detalleUsuarioRepository = detalleUsuarioRepository;
-        this.telefonoRepository = telefonoRepository;
-    }
 
     @Transactional
-    public void saveAUser(Usuario usuario, DetalleUsuario detalleUsuario, List<Telefono> telefonos){
-        usuarioRepository.save(usuario);
+    public Usuario saveAUser(Usuario usuario, DetalleUsuario detalleUsuario, List<Telefono> telefonos){
+
         detalleUsuarioRepository.save(detalleUsuario);
         telefonos.stream()
                 .peek(telefono -> LOG.info("telefono agregado " + telefono))
                 .forEach(telefono -> telefonoRepository.save(telefono));
+        return usuarioRepository.save(usuario);
+    }
+
+    public Usuario createOneUser(Usuario usuario){
+        return usuarioRepository.save(usuario);
     }
 
     public List<Usuario> getAllUsers(){
@@ -44,6 +47,7 @@ public class UsuarioService {
         usuarioRepository.deleteById(id);
         detalleUsuarioRepository.deleteById(detalleUsuarioRepository.findByusuarioId(id).getId());
     }
+
     public Usuario updatePassword(Usuario newUser, String id){
         return
                 usuarioRepository.findById(id)
@@ -55,6 +59,7 @@ public class UsuarioService {
                         }
                 ).get();
     }
+
     public DetalleUsuario updateUserDetails(DetalleUsuario newDetails, String id){
         return
                 detalleUsuarioRepository.findById(detalleUsuarioRepository.findByusuarioId(id).getId())
