@@ -1,18 +1,19 @@
 package com.valtek.backend_database.persistence.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
-@Table(name = "costumers")
+@Table(name = "customer")
 public class Cliente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
 
-    @Column(name = "names")
+    @Column(name = "name")
     private String nombre;
 
-    @Column(name = "lastnames")
+    @Column(name = "lastname")
     private String apellidos;
 
     @Column(name = "email")
@@ -21,18 +22,22 @@ public class Cliente {
     @Column(name = "address")
     private String direccion;
 
-    @Column(name = "costumersdetails_id")
-    private String detalleclientesId;
+    @ManyToOne
+    @JoinColumn(name="customerType_id")
+    private DetalleCliente detalleCliente;
+
+    @OneToMany(mappedBy = "cliente")
+    private List<Telefono> telefonos;
 
     public Cliente(){}
 
-    public Cliente(String id, String nombre, String apellidos, String correo, String direccion, String detalleclientesId) {
-        this.id = id;
+    public Cliente(String nombre, String apellidos, String correo, String direccion, DetalleCliente detalleCliente, List<Telefono> telefonos) {
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.correo = correo;
         this.direccion = direccion;
-        this.detalleclientesId = detalleclientesId;
+        this.detalleCliente = detalleCliente;
+        this.telefonos = telefonos;
     }
 
     public String getId() {
@@ -75,11 +80,32 @@ public class Cliente {
         this.direccion = direccion;
     }
 
-    public String getDetalleclientesId() {
-        return detalleclientesId;
+    public DetalleCliente getDetalleCliente() {
+        return detalleCliente;
     }
 
-    public void setDetalleclientesId(String detalleclientesId) {
-        this.detalleclientesId = detalleclientesId;
+    public void setDetalleCliente(DetalleCliente detalleCliente) {
+        this.detalleCliente = detalleCliente;
+    }
+
+    public List<Telefono> getTelefonos() {
+        return telefonos;
+    }
+
+    public void setTelefonos(List<Telefono> telefonos) {
+        this.telefonos = telefonos;
+    }
+
+    @Override
+    public String toString() {
+        return "Cliente{" +
+                "id='" + id + '\'' +
+                ", nombre='" + nombre + '\'' +
+                ", apellidos='" + apellidos + '\'' +
+                ", correo='" + correo + '\'' +
+                ", direccion='" + direccion + '\'' +
+                ", detalleCliente=" + detalleCliente +
+                ", telefonos=" + telefonos +
+                '}';
     }
 }

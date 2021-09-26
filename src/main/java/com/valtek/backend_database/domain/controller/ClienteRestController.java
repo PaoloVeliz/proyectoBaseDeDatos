@@ -1,29 +1,49 @@
 package com.valtek.backend_database.domain.controller;
 
+import com.valtek.backend_database.domain.dto.ClienteDTO;
+import com.valtek.backend_database.domain.dto.DetalleClienteDTO;
+import com.valtek.backend_database.domain.dto.RequestDTO;
 import com.valtek.backend_database.persistence.entity.Cliente;
+import com.valtek.backend_database.persistence.entity.DetalleCliente;
+import com.valtek.backend_database.persistence.service.ClienteDetalleService;
 import com.valtek.backend_database.persistence.service.ClienteService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:3000")
 @RestController
-@RequestMapping("/clientes")
+@CrossOrigin(origins = "http://localhost:3000")
+@RequestMapping("/customers")
 public class ClienteRestController {
-    private ClienteService clienteService;
 
-    public ClienteRestController(ClienteService clienteService) {
-        this.clienteService = clienteService;
-    }
+    @Autowired
+    ClienteService clienteService;
+
+    @Autowired
+    ClienteDetalleService clienteDetalleService;
 
     @GetMapping("/")
-    List<Cliente> getAllCostumers(){
+    List<Cliente> getCustomers() {
         return clienteService.getAllCostumers();
     }
 
+    /* @PostMapping("/")
+    ResponseEntity<Cliente> newUser(@RequestBody ClienteDTO customerDto) {
+        System.out.println(customerDto.toString());
+        return new ResponseEntity<>(clienteService.saveCustomer(customerDto), HttpStatus.CREATED);
+    } */
 
+    @PostMapping("/type/")
+    ResponseEntity<DetalleCliente> newCustomerType(@RequestBody RequestDTO requestDTO) throws Exception {
+        System.out.println();
+        return new ResponseEntity<>(clienteDetalleService.saveDetallCliente(requestDTO), HttpStatus.CREATED);
+    }
+
+    @GetMapping("/type/")
+    List<DetalleCliente> getCustomerType () {
+        return clienteDetalleService.getAll();
+    }
 }

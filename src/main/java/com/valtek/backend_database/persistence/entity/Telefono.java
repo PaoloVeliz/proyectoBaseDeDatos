@@ -3,7 +3,7 @@ package com.valtek.backend_database.persistence.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "phones")
+@Table(name = "phone")
 public class Telefono {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -12,19 +12,16 @@ public class Telefono {
     @Column(name = "number")
     private String numero;
 
-    @Column(name = "ownerId")
-    private String personaId;
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    private Cliente cliente;
+
+    public Telefono() {
+
+    }
 
     public String getId() {
         return id;
-    }
-
-    public Telefono(){}
-
-    public Telefono(String id, String numero, String personaId) {
-        this.id = id;
-        this.numero = numero;
-        this.personaId = personaId;
     }
 
     public void setId(String id) {
@@ -39,11 +36,20 @@ public class Telefono {
         this.numero = numero;
     }
 
-    public String getPersonaId() {
-        return personaId;
+    public Cliente getCliente() {
+        return cliente;
     }
 
-    public void setPersonaId(String personaId) {
-        this.personaId = personaId;
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    @Override
+    public String toString() {
+        return "Telefono{" +
+                "id='" + id + '\'' +
+                ", numero='" + numero + '\'' +
+                ", cliente=" + cliente +
+                '}';
     }
 }

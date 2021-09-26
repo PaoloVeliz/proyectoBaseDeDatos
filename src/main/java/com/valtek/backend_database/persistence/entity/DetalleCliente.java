@@ -2,27 +2,27 @@ package com.valtek.backend_database.persistence.entity;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
-@Table(name = "costumersdetails")
+@Table(name = "customerType")
 public class DetalleCliente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private String id;
 
-    @Column(name = "type")
-    private Integer tipo;
+    @Column(name = "name")
+    private String nombre;
 
     @Column(name = "discount")
     private Integer descuento;
 
-    public DetalleCliente(){}
+    @OneToMany(mappedBy = "detalleCliente")
+    private List<Cliente> clienteList;
 
-    public DetalleCliente(String id, Integer tipo, Integer descuento) {
-        this.id = id;
-        this.tipo = tipo;
-        this.descuento = descuento;
+    public DetalleCliente(){
+
     }
 
     public String getId() {
@@ -33,12 +33,12 @@ public class DetalleCliente {
         this.id = id;
     }
 
-    public Integer getTipo() {
-        return tipo;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setTipo(Integer tipo) {
-        this.tipo = tipo;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public Integer getDescuento() {
@@ -47,5 +47,23 @@ public class DetalleCliente {
 
     public void setDescuento(Integer descuento) {
         this.descuento = descuento;
+    }
+
+    public List<Cliente> getClienteList() {
+        return clienteList;
+    }
+
+    public void setClienteList(List<Cliente> clienteList) {
+        this.clienteList = clienteList;
+    }
+
+    @Override
+    public String toString() {
+        return "DetalleCliente{" +
+                "id='" + id + '\'' +
+                ", nombre='" + nombre + '\'' +
+                ", descuento=" + descuento +
+                ", clienteList=" + clienteList +
+                '}';
     }
 }
