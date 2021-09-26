@@ -1,5 +1,6 @@
 package com.valtek.backend_database.persistence.service;
 
+import com.valtek.backend_database.persistence.entity.CuentasPorPagar;
 import com.valtek.backend_database.persistence.entity.DetalleVentas;
 import com.valtek.backend_database.persistence.entity.Venta;
 import com.valtek.backend_database.domain.repository.DetalleVentasRepository;
@@ -25,11 +26,13 @@ public class VentaService {
     }
 
     @Transactional
-    public void saveSale(Venta venta, List<DetalleVentas> detalleVentas){
-        ventaRepository.save(venta);
+    public Venta saveSale(Venta venta, List<DetalleVentas> detalleVentas){
+        Venta newSale = new Venta();
+        newSale = ventaRepository.save(venta);
         detalleVentas.stream()
                 .peek(detalleVentas1 -> LOG.info("detalle de venta ingresado "+ detalleVentas1))
                 .forEach(detalleVentas1 -> detalleVentasRepository.save(detalleVentas1));
+        return newSale;
     }
 
     public List<Venta> getAllSales(){
@@ -56,5 +59,9 @@ public class VentaService {
                             return ventaRepository.save(venta);
                         }
                 ).get();
+    }
+
+    public List<DetalleVentas> showAllSalesDetails(Iterable<String> idVenta){
+        return detalleVentasRepository.findAllById(idVenta);
     }
 }
