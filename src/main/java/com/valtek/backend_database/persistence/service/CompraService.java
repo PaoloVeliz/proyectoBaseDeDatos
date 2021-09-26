@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CompraService {
@@ -24,22 +25,31 @@ public class CompraService {
     }
 
     @Transactional
-    public void saveAPurchase(Compra compra, List<DetalleCompra> detalleCompras){
-        compraRepository.save(compra);
+    public Compra saveAPurchase(Compra compra, List<DetalleCompra> detalleCompras){
+       Compra newPurchase = new Compra();
+       newPurchase = compraRepository.save(compra);
         detalleCompras.stream()
                 .peek(detalleCompra -> LOG.info("detalle de la compra ingresada "))
                 .forEach(detalleCompra -> detalleCompraRepository.save(detalleCompra));
+        return newPurchase;
     }
 
     public List<Compra> getAllPurchases(){
         return compraRepository.findAll();
     }
-
+    @Transactional
     public void deleteAPurchase(String id){
         compraRepository.deleteById(id);
-        detalleCompraRepository.deleteById(detalleCompraRepository.findBycomprasId(id).getId());
+
+        detalleCompraRepository.findBycomprasId(id).stream()
+                .peek(detalleCompra -> LOG.info(("detalle borrado")))
+                .forEach(detalleCompra -> detalleCompraRepository.deleteById(detalleCompra.getComprasId()));
+        //detalleCompraRepository.deleteById(detalleCompraRepository.findBycomprasId(id));
     }
 
+    public List<DetalleCompra> showPurchaseDetails (String idCompra){
+        return detalleCompraRepository.findBycomprasId(idCompra);
+    }
     public Compra updatePurchase(Compra newPurhcase , String id){
         return
                 compraRepository.findById(id)

@@ -29,4 +29,6 @@ public class UsuarioRestController {
         System.out.println(user.toString());
         return new ResponseEntity<>(usuarioService.createOneUser(user), HttpStatus.CREATED);
     }
+
+
 }

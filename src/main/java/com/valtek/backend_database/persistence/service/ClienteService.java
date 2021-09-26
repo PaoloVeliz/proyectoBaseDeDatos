@@ -34,7 +34,7 @@ public class ClienteService {
     private CustomerTypeFillUtils customerTypeFillUtils;
 
     @Transactional
-    public void saveASale(Cliente cliente, DetalleCliente detalleCliente, List<Telefono> telefonos){
+    public void saveACostumer(Cliente cliente, DetalleCliente detalleCliente, List<Telefono> telefonos){
         clienteRepository.save(cliente);
         detalleClienteRepository.save(detalleCliente);
         telefonos.stream()

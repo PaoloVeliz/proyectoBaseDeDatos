@@ -19,4 +19,5 @@ public interface UsuarioRepository extends JpaRepository<Usuario,String> {
     List<Usuario> findAndSort(String nombreUsuario, TypeCache.Sort Sort);
 
     List<Usuario> findBynombreUsuario(String nombreUsuario);
+
 }
