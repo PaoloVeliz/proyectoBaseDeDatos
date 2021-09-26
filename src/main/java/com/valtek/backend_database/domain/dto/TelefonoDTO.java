@@ -7,10 +7,18 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TelefonoDTO {
     private String telefono;
-    private ClienteDTO clienteDTO;
+    private String cliente_id;
 
     public TelefonoDTO() {
 
+    }
+
+    public String getCliente_id() {
+        return cliente_id;
+    }
+
+    public void setCliente_id(String cliente_id) {
+        this.cliente_id = cliente_id;
     }
 
     public String getTelefono() {
@@ -19,13 +27,5 @@ public class TelefonoDTO {
 
     public void setTelefono(String telefono) {
         this.telefono = telefono;
-    }
-
-    public ClienteDTO getClienteDTO() {
-        return clienteDTO;
-    }
-
-    public void setClienteDTO(ClienteDTO clienteDTO) {
-        this.clienteDTO = clienteDTO;
     }
 }

@@ -14,11 +14,18 @@ public class ClienteDTO {
     private String correo;
     private String direccion;
 
-    private DetalleClienteDTO detalleClienteDTO;
-    private List<TelefonoDTO> telefonoDTOS;
+    private String detalleCliente_id;
 
     public ClienteDTO() {
 
+    }
+
+    public String getDetalleCliente_id() {
+        return detalleCliente_id;
+    }
+
+    public void setDetalleCliente_id(String detalleCliente_id) {
+        this.detalleCliente_id = detalleCliente_id;
     }
 
     public String getNombre() {
@@ -51,33 +58,5 @@ public class ClienteDTO {
 
     public void setDireccion(String direccion) {
         this.direccion = direccion;
-    }
-
-    public DetalleClienteDTO getDetalleClienteDTO() {
-        return detalleClienteDTO;
-    }
-
-    public void setDetalleClienteDTO(DetalleClienteDTO detalleClienteDTO) {
-        this.detalleClienteDTO = detalleClienteDTO;
-    }
-
-    public List<TelefonoDTO> getTelefonoDTOS() {
-        return telefonoDTOS;
-    }
-
-    public void setTelefonoDTOS(List<TelefonoDTO> telefonoDTOS) {
-        this.telefonoDTOS = telefonoDTOS;
-    }
-
-    @Override
-    public String toString() {
-        return "ClienteDTO{" +
-                "nombre='" + nombre + '\'' +
-                ", apellidos='" + apellidos + '\'' +
-                ", correo='" + correo + '\'' +
-                ", direccion='" + direccion + '\'' +
-                ", detalleClienteDTO=" + detalleClienteDTO +
-                ", telefonoDTOS=" + telefonoDTOS +
-                '}';
     }
 }

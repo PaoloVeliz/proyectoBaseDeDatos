@@ -31,14 +31,12 @@ public class ClienteRestController {
     }
 
     /* @PostMapping("/")
-    ResponseEntity<Cliente> newUser(@RequestBody ClienteDTO customerDto) {
-        System.out.println(customerDto.toString());
-        return new ResponseEntity<>(clienteService.saveCustomer(customerDto), HttpStatus.CREATED);
+    ResponseEntity<Cliente> newUser(@RequestBody RequestDTO requestDTO) {
+        return new ResponseEntity<>(clienteService.saveCustomer(requestDTO), HttpStatus.CREATED);
     } */
 
     @PostMapping("/type/")
     ResponseEntity<DetalleCliente> newCustomerType(@RequestBody RequestDTO requestDTO) throws Exception {
-        System.out.println();
         return new ResponseEntity<>(clienteDetalleService.saveDetallCliente(requestDTO), HttpStatus.CREATED);
     }
 

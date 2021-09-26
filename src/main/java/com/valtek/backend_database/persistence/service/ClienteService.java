@@ -1,12 +1,14 @@
 package com.valtek.backend_database.persistence.service;
 
 import com.valtek.backend_database.domain.dto.ClienteDTO;
+import com.valtek.backend_database.domain.dto.RequestDTO;
 import com.valtek.backend_database.persistence.entity.Cliente;
 import com.valtek.backend_database.persistence.entity.DetalleCliente;
 import com.valtek.backend_database.persistence.entity.Telefono;
 import com.valtek.backend_database.domain.repository.ClienteRepository;
 import com.valtek.backend_database.domain.repository.DetalleClienteRepository;
 import com.valtek.backend_database.domain.repository.TelefonoRepository;
+import com.valtek.backend_database.persistence.service.utils.CustomerFillUtils;
 import com.valtek.backend_database.persistence.service.utils.CustomerTypeFillUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -31,7 +33,7 @@ public class ClienteService {
     private TelefonoRepository telefonoRepository;
 
     @Autowired
-    private CustomerTypeFillUtils customerTypeFillUtils;
+    private CustomerFillUtils customerFillUtils;
 
     @Transactional
     public void saveASale(Cliente cliente, DetalleCliente detalleCliente, List<Telefono> telefonos){
@@ -43,32 +45,16 @@ public class ClienteService {
 
     }
 
-    public void saveCustomer(ClienteDTO customerDto) {
-        /* DetalleCliente detalleCliente = customerTypeFillUtils.fillCustomerType(customerDto.getDetalleClienteDTO());
-        Optional<DetalleCliente> foundCustomerType = detalleClienteRepository.findById(detalleCliente.getId());
-
+    public void saveCustomer(RequestDTO requestDTO) {
+        /* Optional<DetalleCliente> foundCustomerType = detalleClienteRepository.findById(requestDTO.getClienteDTO().getDetalleCliente_id());
         if(foundCustomerType.isEmpty()) {
 
         }
 
-        detalleClienteRepository.save(detalleCliente);
+        Cliente newCustomer = customerFillUtils.fillCustomer(requestDTO.getClienteDTO(), foundCustomerType);
+        Cliente savedCustomer = clienteRepository.save(newCustomer);
 
-        Cliente cliente = new Cliente(
-                customer.getNombre(),
-                customer.getApellidos(),
-                customer.getCorreo(),
-                customer.getDireccion(),
-                detalleCliente.getId()
-        );
-        Cliente savedCustomer = clienteRepository.save(cliente);
-        if (customer.getTelefonos().size() > 0) {
-            System.out.println(customer.getTelefonos());
-            customer.getTelefonos().forEach(phone -> {
-                Telefono newPhone = new Telefono(phone.getNumero(), savedCustomer.getId());
-                telefonoRepository.save(newPhone);
-            });
-        }
-        return savedCustomer; */
+        return savedCustomer;*/
     }
 
     public List<Cliente> getAllCostumers(){
