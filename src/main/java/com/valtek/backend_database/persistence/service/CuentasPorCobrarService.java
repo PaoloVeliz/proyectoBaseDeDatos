@@ -15,8 +15,8 @@ public class CuentasPorCobrarService {
     private CuentasPorCobrarRepository cuentasPorCobrarRepository;
 
     @Transactional
-    public void saveReceivable(CuentasPorCobrar cuentasPorCobrar){
-        cuentasPorCobrarRepository.save(cuentasPorCobrar);
+    public CuentasPorCobrar saveReceivable(CuentasPorCobrar cuentasPorCobrar){
+       return cuentasPorCobrarRepository.save(cuentasPorCobrar);
     }
 
     public List<CuentasPorCobrar> getAllReceivables(){
@@ -43,4 +43,5 @@ public class CuentasPorCobrarService {
                         }
                 ).get();
     }
+
 }

@@ -1,2 +1,5 @@
-package com.valtek.backend_database.domain.controller;public class ProveedorRestController {
+package com.valtek.backend_database.domain.controller;
+
+
+public class ProveedorRestController {
 }

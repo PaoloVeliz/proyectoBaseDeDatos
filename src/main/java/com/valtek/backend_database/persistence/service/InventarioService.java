@@ -7,6 +7,7 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class InventarioService {
@@ -19,8 +20,8 @@ public class InventarioService {
         this.inventarioRepository = inventarioRepository;
     }
 
-    public void saveProduct(Inventario producto){
-        inventarioRepository.save(producto);
+    public Inventario saveProduct(Inventario producto){
+         return inventarioRepository.save(producto);
     }
 
     public List<Inventario> getAllProducts(){
@@ -45,5 +46,43 @@ public class InventarioService {
                 ).get();
     }
 
+    public int getAProductAmount(String codigoProducto){
+        Optional<Inventario> producto = inventarioRepository.findById(codigoProducto);
+        return producto.get().getCantidad();
+    }
+
+    public Inventario updateWhenASale(Inventario newProduct, String id){
+        int previous_amount = getAProductAmount(id);
+        return
+                inventarioRepository.findById(id)
+                .map(
+                        inventario -> {
+                            inventario.setCodigoProducto(newProduct.getCodigoProducto());
+                            inventario.setNombreProducto(newProduct.getNombreProducto());
+                            inventario.setCantidad(previous_amount - newProduct.getCantidad());
+                            inventario.setPrecio(newProduct.getPrecio());
+                            return inventarioRepository.save(inventario);
+                        }
+                ).get();
+    }
+
+    public Inventario updateWhenAPurchase(Inventario newProduct, String id){
+        int previous_amount = getAProductAmount(id);
+        return
+                inventarioRepository.findById(id)
+                        .map(
+                                inventario -> {
+                                    inventario.setCodigoProducto(newProduct.getCodigoProducto());
+                                    inventario.setNombreProducto(newProduct.getNombreProducto());
+                                    inventario.setCantidad(previous_amount - newProduct.getCantidad());
+                                    inventario.setPrecio(newProduct.getPrecio());
+                                    return inventarioRepository.save(inventario);
+                                }
+                        ).get();
+    }
+
+    public Optional<Inventario> getAProduct(String codigoProducto){
+        return inventarioRepository.findById(codigoProducto);
+    }
 
 }
