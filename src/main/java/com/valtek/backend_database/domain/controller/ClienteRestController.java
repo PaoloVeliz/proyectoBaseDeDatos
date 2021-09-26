@@ -36,7 +36,7 @@ public class ClienteRestController {
         return new ResponseEntity<>(clienteService.saveCustomer(customerDto), HttpStatus.CREATED);
     } */
 
-    @PostMapping("/")
+    @PostMapping("/type/")
     ResponseEntity<DetalleCliente> newCustomerType(@RequestBody RequestDTO requestDTO) throws Exception {
         System.out.println();
         return new ResponseEntity<>(clienteDetalleService.saveDetallCliente(requestDTO), HttpStatus.CREATED);
