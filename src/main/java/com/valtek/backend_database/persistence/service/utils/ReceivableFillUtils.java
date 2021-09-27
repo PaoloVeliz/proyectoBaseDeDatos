@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ReceivableFillUtils {
+    /*
     public CuentasPorCobrar  fillReceivable(CuentasPorCobrarDTO receivableDTO){
         CuentasPorCobrar cuentasPorCobrar = new CuentasPorCobrar();
         cuentasPorCobrar.setTotal(receivableDTO.getTotal());
@@ -20,4 +21,6 @@ public class ReceivableFillUtils {
     private static <T> T check(T element) {
         return element == null ? null : element;
     }
+
+     */
 }

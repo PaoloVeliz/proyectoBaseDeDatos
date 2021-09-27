@@ -2,17 +2,19 @@ package com.valtek.backend_database.persistence.service.utils;
 
 import com.valtek.backend_database.domain.dto.CompraDTO;
 import com.valtek.backend_database.persistence.entity.Compra;
+import com.valtek.backend_database.persistence.entity.Proveedores;
+import com.valtek.backend_database.persistence.entity.Usuario;
 import org.springframework.stereotype.Service;
 
 @Service
 public class PurchaseFillUtils {
-    public Compra fillPurchase(CompraDTO purchaseDTO){
+    public Compra fillPurchase(CompraDTO purchaseDTO, Proveedores proveedores, Usuario usuario){
         Compra compra = new Compra();
         compra.setFecha(purchaseDTO.getFecha());
         compra.setTotal(purchaseDTO.getTotal());
         compra.setYapagado(purchaseDTO.isYapagado());
-        compra.setProveedoresId(purchaseDTO.getProveedoresId());
-        compra.setNombre(purchaseDTO.getNombre());
+        compra.setProveedores(proveedores);
+        compra.setUsuario(usuario);
         return compra;
     }
 

@@ -3,6 +3,7 @@ package com.valtek.backend_database.domain.dto;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.valtek.backend_database.persistence.entity.Proveedores;
 
 import java.util.List;
 
@@ -27,8 +28,7 @@ public class RequestDTO {
     @JsonProperty("detalle_venta")
     private List<DetalleVentasDTO> detalleVentasDTO;
 
-    @JsonProperty("detalle_compra")
-    private List<DetalleCompraDTO> detalleCompraDTO;
+
 
     //++++++++++++++++++++++++++++++++METODOS DE CLIENTES
     public ClienteDTO getClienteDTO() {
@@ -75,19 +75,22 @@ public class RequestDTO {
         this.compraDTO = compraDTO;
     }
 
-    //+++++++++++++++++++++++++++++METODOS DE DETALLE_COMPRAS
-    public void setDetalleCompraDTO(List<DetalleCompraDTO> detalleCompraDTO) {
-        this.detalleCompraDTO = detalleCompraDTO;
-    }
-
-    public List<DetalleCompraDTO> getDetalleCompraDTO() {
-        return detalleCompraDTO;
-    }
     //++++++++++++++++++++++++++++METODOS DE DETALLE_VENTAS
     public void setDetalleVentasDTO(List<DetalleVentasDTO> detalleVentasDTO) {
         this.detalleVentasDTO = detalleVentasDTO;
     }
     public List<DetalleVentasDTO> getDetalleVentasDTO() {
         return detalleVentasDTO;
+    }
+
+    @JsonProperty("proveedor")
+    private ProveedoresDTO proveedoresDTO;
+
+    public ProveedoresDTO getProveedoresDTO() {
+        return proveedoresDTO;
+    }
+
+    public void setProveedoresDTO(ProveedoresDTO proveedoresDTO) {
+        this.proveedoresDTO = proveedoresDTO;
     }
 }

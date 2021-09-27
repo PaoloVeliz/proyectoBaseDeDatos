@@ -1,11 +1,17 @@
 package com.valtek.backend_database.persistence.service;
 
-import com.valtek.backend_database.persistence.entity.Compra;
-import com.valtek.backend_database.persistence.entity.DetalleCompra;
-import com.valtek.backend_database.domain.repository.CompraRepository;
-import com.valtek.backend_database.domain.repository.DetalleCompraRepository;
+import com.valtek.backend_database.domain.dto.RequestDTO;
+import com.valtek.backend_database.domain.repository.*;
+import com.valtek.backend_database.persistence.entity.*;
+import com.valtek.backend_database.persistence.service.utils.CustomerFillUtils;
+import com.valtek.backend_database.persistence.service.utils.PhoneFillUtils;
+import com.valtek.backend_database.persistence.service.utils.PurchaseDetailsFillUtils;
+import com.valtek.backend_database.persistence.service.utils.PurchaseFillUtils;
+import com.valtek.backend_database.persistence.validate.BusinessException;
+import com.valtek.backend_database.persistence.validate.Validate;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -14,55 +20,67 @@ import java.util.Optional;
 
 @Service
 public class CompraService {
-    /* private final Log LOG = LogFactory.getLog(UsuarioService.class);
+    private final Log LOG = LogFactory.getLog(UsuarioService.class);
+
+    @Autowired
     private CompraRepository compraRepository;
+
+    @Autowired
     private DetalleCompraRepository detalleCompraRepository;
 
-    public CompraService(){}
-    public CompraService(CompraRepository compraRepository, DetalleCompraRepository detalleCompraRepository) {
-        this.compraRepository = compraRepository;
-        this.detalleCompraRepository = detalleCompraRepository;
-    }
+    @Autowired
+    private PurchaseFillUtils purchaseFillUtils;
+
+    @Autowired
+    private ProveedoresRepository proveedoresRepository;
+
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private InventarioRepository inventarioRepository;
+
+    @Autowired
+    private PurchaseDetailsFillUtils purchaseDetailsFillUtils;
 
     @Transactional
-    public Compra saveAPurchase(Compra compra, List<DetalleCompra> detalleCompras){
-       Compra newPurchase = new Compra();
-       newPurchase = compraRepository.save(compra);
-        detalleCompras.stream()
-                .peek(detalleCompra -> LOG.info("detalle de la compra ingresada "))
-                .forEach(detalleCompra -> detalleCompraRepository.save(detalleCompra));
-        return newPurchase;
+    public Compra savePurchase(RequestDTO requestDTO) throws BusinessException {
+        Validate.validateCompra(requestDTO);
+        Optional<Proveedores> foundProvider = proveedoresRepository.findById(requestDTO.getCompraDTO().getProveedoresId());
+        if(foundProvider.isEmpty()) {
+            throw new BusinessException("BAD_REQUEST", "El proveedor no existe");
+        }
+        Optional<Usuario> foundUser = usuarioRepository.findById(requestDTO.getCompraDTO().getUsuarioId());
+        if(foundUser.isEmpty()) {
+            throw new BusinessException("BAD_REQUEST", "El usuario no existe");
+        }
+        /*
+        Cliente newCustomer = customerFillUtils.fillCustomer(requestDTO.getClienteDTO(), foundCustomerType.get());
+        Cliente savedCustomer = clienteRepository.save(newCustomer);
+         */
+        Compra newPurchase = purchaseFillUtils.fillPurchase(requestDTO.getCompraDTO(),foundProvider.get(),foundUser.get());
+        Compra savedPurchase = compraRepository.save(newPurchase);
+
+        if (requestDTO.getCompraDTO().getDetalleCompraDTO().size() > 0) {
+            requestDTO.getCompraDTO().getDetalleCompraDTO().forEach(detalleCompraDTO -> {
+                Optional<Inventario> foundProduct = inventarioRepository.findById(detalleCompraDTO.getProductoId());
+                if(foundProduct.isEmpty()) {
+                    try {
+                        throw new BusinessException("BAD_REQUEST", "El producto no existe");
+                    } catch (BusinessException e) {
+                        e.printStackTrace();
+                    }
+                }
+                DetalleCompra newDetalleCompra = purchaseDetailsFillUtils.fillPurchaseDetail(detalleCompraDTO,newPurchase,foundProduct.get());
+                detalleCompraRepository.save(newDetalleCompra);
+            });
+        }
+
+        return savedPurchase;
     }
 
     public List<Compra> getAllPurchases(){
         return compraRepository.findAll();
     }
-    @Transactional
-    public void deleteAPurchase(String id){
-        compraRepository.deleteById(id);
 
-        detalleCompraRepository.findBycomprasId(id).stream()
-                .peek(detalleCompra -> LOG.info(("detalle borrado")))
-                .forEach(detalleCompra -> detalleCompraRepository.deleteById(detalleCompra.getComprasId()));
-        //detalleCompraRepository.deleteById(detalleCompraRepository.findBycomprasId(id));
-    }
-
-    public List<DetalleCompra> showPurchaseDetails (String idCompra){
-        return detalleCompraRepository.findBycomprasId(idCompra);
-    }
-    public Compra updatePurchase(Compra newPurhcase , String id){
-        return
-                compraRepository.findById(id)
-                .map(
-                        compra -> {
-                            compra.setId(newPurhcase.getId());
-                            compra.setFecha(newPurhcase.getFecha());
-                            compra.setNombre(newPurhcase.getNombre());
-                            compra.setTotal(newPurhcase.getTotal());
-                            compra.setYapagado(newPurhcase.isYapagado());
-                            compra.setProveedoresId(newPurhcase.getProveedoresId());
-                            return compraRepository.save(compra);
-                        }
-                ).get();
-    } */
 }

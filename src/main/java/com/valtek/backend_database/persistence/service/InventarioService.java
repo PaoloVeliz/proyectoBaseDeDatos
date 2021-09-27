@@ -12,7 +12,8 @@ import java.util.Optional;
 
 @Service
 public class InventarioService {
-    /* private final Log LOG = LogFactory.getLog(UsuarioService.class);
+/*
+   private final Log LOG = LogFactory.getLog(UsuarioService.class);
     private InventarioRepository inventarioRepository;
 
     public Inventario saveProduct(Inventario producto){
@@ -60,7 +61,8 @@ public class InventarioService {
                         }
                 ).get();
     }
-
+*/
+/*
     public Inventario updateWhenAPurchase(Inventario newProduct, String id){
         int previous_amount = getAProductAmount(id);
         return
@@ -75,9 +77,10 @@ public class InventarioService {
                                 }
                         ).get();
     }
-
+ */
+    /*
     public Optional<Inventario> getAProduct(String codigoProducto){
         return inventarioRepository.findById(codigoProducto);
-    } */
-
+    }
+     */
 }

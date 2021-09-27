@@ -27,4 +27,15 @@ public class Validate {
             throw new BusinessException("BAD_REQUEST", "Es necesario asignar un nombre de proveedor");
         }
     }
+    public static void validateCompra(RequestDTO requestDTO) throws BusinessException {
+        if (requestDTO.getCompraDTO().getUsuarioId() == null ) {
+            throw new BusinessException("BAD_REQUEST", "Es necesario asignar un nombre de proveedor");
+        }
+        if (requestDTO.getCompraDTO().getProveedoresId() == null ) {
+            throw new BusinessException("BAD_REQUEST", "Es necesario asignar un nombre de proveedor");
+        }
+        if (requestDTO.getCompraDTO().getDetalleCompraDTO().size() == 0 ) {
+            throw new BusinessException("BAD_REQUEST", "Es necesario asignar un producto minimo");
+        }
+    }
 }
