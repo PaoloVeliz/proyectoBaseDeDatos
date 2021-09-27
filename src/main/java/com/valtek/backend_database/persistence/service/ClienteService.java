@@ -49,11 +49,13 @@ public class ClienteService {
         Cliente newCustomer = customerFillUtils.fillCustomer(requestDTO.getClienteDTO(), foundCustomerType.get());
         Cliente savedCustomer = clienteRepository.save(newCustomer);
 
-        if (requestDTO.getClienteDTO().getTelefonoDTO().size() > 0) {
-            requestDTO.getClienteDTO().getTelefonoDTO().forEach(telefono -> {
-                Telefono newTelefono = phoneFillUtils.fillPhone(telefono, newCustomer);
-                telefonoRepository.save(newTelefono);
-            });
+        if (requestDTO.getClienteDTO().getTelefonoDTO() != null) {
+            if (requestDTO.getClienteDTO().getTelefonoDTO().size() > 0) {
+                requestDTO.getClienteDTO().getTelefonoDTO().forEach(telefono -> {
+                    Telefono newTelefono = phoneFillUtils.fillPhone(telefono, newCustomer);
+                    telefonoRepository.save(newTelefono);
+                });
+            }
         }
 
         return savedCustomer;

@@ -3,11 +3,7 @@ package com.valtek.backend_database.domain.controller;
 
 import com.valtek.backend_database.domain.dto.RequestDTO;
 import com.valtek.backend_database.persistence.entity.*;
-import com.valtek.backend_database.persistence.service.ClienteDetalleService;
-import com.valtek.backend_database.persistence.service.ClienteService;
 import com.valtek.backend_database.persistence.service.CompraService;
-import com.valtek.backend_database.persistence.service.CuentasPorPagarService;
-import com.valtek.backend_database.persistence.validate.BusinessException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,9 +18,6 @@ public class CompraRestController {
     @Autowired
     CompraService compraService;
 
-
-
-
     @PostMapping("/")
     ResponseEntity<Compra> newPurchase(@RequestBody RequestDTO requestDTO) throws Exception {
         return new ResponseEntity<>(compraService.savePurchase(requestDTO), HttpStatus.CREATED);
@@ -34,5 +27,4 @@ public class CompraRestController {
     List<Compra> getAllPurchases () {
         return compraService.getAllPurchases();
     }
-
 }

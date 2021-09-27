@@ -24,11 +24,11 @@ public class Inventario {
     private Integer precio;
 
     @OneToMany(mappedBy = "inventario", cascade = CascadeType.ALL)
-    @JsonIgnoreProperties("inventario")
-    private List<DetalleCompra> detalleCompraLista;
+    @JsonIgnoreProperties({"inventario", "detalleVentasList", "detalleCompraList"})
+    private List<DetalleCompra> detalleCompraList;
 
     @OneToMany(mappedBy = "inventario", cascade = CascadeType.ALL)
-    @JsonIgnoreProperties("inventario")
+    @JsonIgnoreProperties({"inventario", "detalleVentasList", "detalleCompraList"})
     private List<DetalleVentas> detalleVentasList;
 
     public Inventario(){}
@@ -65,12 +65,12 @@ public class Inventario {
         this.precio = precio;
     }
 
-    public List<DetalleCompra> getDetalleCompraLista() {
-        return detalleCompraLista;
+    public List<DetalleCompra> getDetalleCompraList() {
+        return detalleCompraList;
     }
 
-    public void setDetalleCompraLista(List<DetalleCompra> detalleCompraLista) {
-        this.detalleCompraLista = detalleCompraLista;
+    public void setDetalleCompraList(List<DetalleCompra> detalleCompraList) {
+        this.detalleCompraList = detalleCompraList;
     }
 
     public List<DetalleVentas> getDetalleVentasList() {

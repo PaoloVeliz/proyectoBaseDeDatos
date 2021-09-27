@@ -1,5 +1,6 @@
 package com.valtek.backend_database.domain.controller;
 
+import com.valtek.backend_database.domain.dto.RequestDTO;
 import com.valtek.backend_database.persistence.entity.Usuario;
 import com.valtek.backend_database.persistence.service.UsuarioService;
 import org.springframework.http.HttpStatus;
@@ -10,7 +11,7 @@ import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
-@RequestMapping("/usuarios")
+@RequestMapping("/users")
 public class UsuarioRestController {
 
     private final UsuarioService usuarioService;
@@ -22,6 +23,11 @@ public class UsuarioRestController {
     @GetMapping("/")
     List<Usuario> getUsers() {
         return usuarioService.getAllUsers();
+    }
+
+    @PostMapping("/login/")
+    ResponseEntity<Usuario> login(@RequestBody RequestDTO requestDTO) {
+        return new ResponseEntity<>(usuarioService.getUserById(requestDTO), HttpStatus.CREATED);
     }
 
     @PostMapping("/")

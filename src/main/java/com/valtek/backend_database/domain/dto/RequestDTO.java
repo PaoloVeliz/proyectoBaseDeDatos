@@ -28,7 +28,16 @@ public class RequestDTO {
     @JsonProperty("detalle_venta")
     private List<DetalleVentasDTO> detalleVentasDTO;
 
+    @JsonProperty("login")
+    private UsuarioDTO usuarioDTO;
 
+    public UsuarioDTO getUsuarioDTO() {
+        return usuarioDTO;
+    }
+
+    public void setUsuarioDTO(UsuarioDTO usuarioDTO) {
+        this.usuarioDTO = usuarioDTO;
+    }
 
     //++++++++++++++++++++++++++++++++METODOS DE CLIENTES
     public ClienteDTO getClienteDTO() {
