@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "https://base-de-datos-frontend-otz5d9zki-tatobig.vercel.app/")
 @RequestMapping("/customers")
 public class ClienteRestController {
 
