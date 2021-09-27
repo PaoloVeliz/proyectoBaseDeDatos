@@ -46,7 +46,7 @@ public class CompraService {
     @Autowired
     private PurchaseDetailsFillUtils purchaseDetailsFillUtils;
 
-    @Transactional
+    @Transactional(rollbackOn = Exception.class)
     public Compra savePurchase(RequestDTO requestDTO) throws BusinessException {
         Validate.validateCompra(requestDTO);
         Optional<Proveedores> foundProvider = proveedoresRepository.findById(requestDTO.getCompraDTO().getProveedoresId());

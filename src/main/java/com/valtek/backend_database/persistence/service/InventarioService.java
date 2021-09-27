@@ -30,11 +30,9 @@ public class InventarioService {
        return inventarioRepository.save(inventario);
     }
 
-
     public List<Inventario> getAllProducts () {
         return inventarioRepository.findAll();
     }
-
 
     public Inventario updateWhenASale(Inventario newProduct, Integer newAmount){
         return

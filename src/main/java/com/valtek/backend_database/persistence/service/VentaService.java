@@ -46,7 +46,7 @@ public class VentaService {
     @Autowired
     private SaleDetailFillUtils saleDetailFillUtils;
 
-    @Transactional
+    @Transactional(rollbackOn = Exception.class)
     public Venta saveSale(RequestDTO requestDTO) throws BusinessException {
         Validate.validateVenta(requestDTO);
         Optional<Cliente> foundCostumer = clienteRepository.findById(requestDTO.getVentaDTO().getClienteId());

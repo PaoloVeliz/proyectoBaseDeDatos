@@ -30,7 +30,6 @@ public class ProveedoresService {
         return proveedoresRepository.findAll();
     }
 
-    @Transactional
     public Proveedores saveProvider (RequestDTO requestDTO) throws BusinessException {
         Validate.validateProveedor(requestDTO);
         Proveedores proveedores = providerFillUtils.fillProvider(requestDTO.getProveedoresDTO());

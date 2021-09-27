@@ -39,7 +39,7 @@ public class ClienteService {
     @Autowired
     private PhoneFillUtils phoneFillUtils;
 
-    @Transactional
+    @Transactional(rollbackOn = Exception.class)
     public Cliente saveCustomer(RequestDTO requestDTO) throws BusinessException {
         Validate.validateCliente(requestDTO);
         Optional<DetalleCliente> foundCustomerType = detalleClienteRepository.findById(requestDTO.getClienteDTO().getDetalleCliente_id());
