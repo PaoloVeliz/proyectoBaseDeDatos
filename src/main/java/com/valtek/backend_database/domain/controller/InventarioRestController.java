@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin(origins = "https://base-de-datos-frontend-otz5d9zki-tatobig.vercel.app/")
+@CrossOrigin(origins = "https://base-de-datos-frontend-14gczqhqb-tatobig.vercel.app/")
 @RestController
 @RequestMapping("/inventario")
 public class InventarioRestController {
