@@ -20,4 +20,5 @@ public interface UsuarioRepository extends JpaRepository<Usuario,String> {
 
     List<Usuario> findBynombreUsuario(String nombreUsuario);
 
+    Usuario findByNombreUsuarioAndContrasena(String nombreUsuario, String contrasena);
 }

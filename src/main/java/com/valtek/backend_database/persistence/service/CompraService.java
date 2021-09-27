@@ -54,10 +54,7 @@ public class CompraService {
         if(foundUser.isEmpty()) {
             throw new BusinessException("BAD_REQUEST", "El usuario no existe");
         }
-        /*
-        Cliente newCustomer = customerFillUtils.fillCustomer(requestDTO.getClienteDTO(), foundCustomerType.get());
-        Cliente savedCustomer = clienteRepository.save(newCustomer);
-         */
+
         Compra newPurchase = purchaseFillUtils.fillPurchase(requestDTO.getCompraDTO(),foundProvider.get(),foundUser.get());
         Compra savedPurchase = compraRepository.save(newPurchase);
 

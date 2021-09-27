@@ -22,12 +22,12 @@ public class DetalleCompra {
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "product_id", referencedColumnName = "id")
-    @JsonIgnoreProperties("detalleCompraList")
+    @JsonIgnoreProperties({"detalleVentasList", "detalleCompraList"})
     private Inventario inventario;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "purchase_id", referencedColumnName = "id")
-    @JsonIgnoreProperties("detalleCompraList")
+    @JsonIgnoreProperties({"detalleVentasList", "detalleCompraList"})
     private Compra compra;
 
     public DetalleCompra(){}

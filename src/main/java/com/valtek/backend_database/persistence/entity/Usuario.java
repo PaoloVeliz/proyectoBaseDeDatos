@@ -16,6 +16,7 @@ public class Usuario {
     @Column(name = "password")
     private String contrasena;
 
+
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     @JsonIgnoreProperties("usuario")
     private List<Venta> ventaList;
