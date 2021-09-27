@@ -4,6 +4,7 @@ import com.valtek.backend_database.persistence.entity.Inventario;
 import com.valtek.backend_database.domain.repository.InventarioRepository;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,13 +13,8 @@ import java.util.Optional;
 @Service
 public class InventarioService {
     private final Log LOG = LogFactory.getLog(UsuarioService.class);
+    @Autowired
     private InventarioRepository inventarioRepository;
-
-    public InventarioService(){}
-
-    public InventarioService(InventarioRepository inventarioRepository) {
-        this.inventarioRepository = inventarioRepository;
-    }
 
     public Inventario saveProduct(Inventario producto){
          return inventarioRepository.save(producto);

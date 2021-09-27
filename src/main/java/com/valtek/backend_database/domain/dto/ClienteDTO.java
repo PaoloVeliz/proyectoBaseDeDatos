@@ -13,7 +13,6 @@ public class ClienteDTO {
     private String apellidos;
     private String correo;
     private String direccion;
-
     private String detalleCliente_id;
 
     public ClienteDTO() {

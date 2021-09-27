@@ -1,7 +1,6 @@
 package com.valtek.backend_database.persistence.entity;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
@@ -19,8 +18,12 @@ public class Venta {
     @Column(name = "alreadypaid")
     private boolean yapagado;
 
+
     @Column(name = "costumers_id")
-    private Integer clientesId;
+    private String clientesId;
+
+    @OneToMany(mappedBy = "venta")
+    public DetalleVentas detalleVentas;
 
     @Column(name = "names")
     private String nombre;
@@ -30,16 +33,23 @@ public class Venta {
 
     public Venta(){}
 
-    public Venta(String id, LocalDateTime fecha, Integer total, boolean yapagado, Integer clientesId, String nombre, String usuarioId) {
+    public Venta(String id, LocalDateTime fecha, Integer total, boolean yapagado, String clientesId ,String nombre, String usuarioId, DetalleVentas detalleVentas) {
         this.id = id;
         this.fecha = fecha;
         this.total = total;
         this.yapagado = yapagado;
-        this.clientesId = clientesId;
+        this.detalleVentas = detalleVentas;
         this.nombre = nombre;
         this.usuarioId = usuarioId;
+        this.clientesId = clientesId;
     }
 
+    public void setClientesId(String clientesId){
+        this.clientesId = clientesId;
+    }
+    public String getClientesId(){
+        return clientesId;
+    }
     public String getUsuarioId() {
         return usuarioId;
     }
@@ -78,14 +88,6 @@ public class Venta {
 
     public void setYapagado(boolean yapagado) {
         this.yapagado = yapagado;
-    }
-
-    public Integer getClientesId() {
-        return clientesId;
-    }
-
-    public void setClientesId(Integer clientesId) {
-        this.clientesId = clientesId;
     }
 
     public String getNombre() {

@@ -11,7 +11,7 @@ public class CustomerFillUtils {
         Cliente cliente = new Cliente();
         cliente.setNombre(customerDto.getNombre());
         cliente.setApellidos(customerDto.getApellidos());
-        cliente.setCorreo(customerDto.getCorreo());
+        cliente.setCorreo(check(customerDto.getCorreo()));
         cliente.setDireccion(customerDto.getDireccion());
         cliente.setDetalleCliente(detalleCliente);
         return cliente;

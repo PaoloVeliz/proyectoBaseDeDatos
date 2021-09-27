@@ -28,15 +28,16 @@ public class DetalleVentas {
 
     private Integer total;
 
-    @Column(name = "sales_id")
-    private String ventasId;
+    @ManyToOne
+    @JoinColumn(name = "sales_id")
+    private Venta venta;
 
     @Column(name = "product_id")
     private Integer productoId;
 
     public DetalleVentas(){}
 
-    public DetalleVentas(String id, Integer clientesId, LocalDateTime fecha, String nombre, Integer cantidad, Integer precio, Integer total, String ventasId, Integer productoId) {
+    public DetalleVentas(String id, Integer clientesId, LocalDateTime fecha, String nombre, Integer cantidad, Integer precio, Integer total, Integer productoId, Venta venta) {
         this.id = id;
         this.clientesId = clientesId;
         this.fecha = fecha;
@@ -44,24 +45,21 @@ public class DetalleVentas {
         this.cantidad = cantidad;
         this.precio = precio;
         this.total = total;
-        this.ventasId = ventasId;
+        this.venta = venta;
         this.productoId = productoId;
     }
-
+    public Venta getVenta(){
+            return venta;
+    }
+    public void setVenta(Venta venta){
+        this.venta = venta;
+    }
     public String getId() {
         return id;
     }
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public Integer getClientesId() {
-        return clientesId;
-    }
-
-    public void setClientesId(Integer clientesId) {
-        this.clientesId = clientesId;
     }
 
     public LocalDateTime getFecha() {
@@ -102,14 +100,6 @@ public class DetalleVentas {
 
     public void setTotal(Integer total) {
         this.total = total;
-    }
-
-    public String getVentasId() {
-        return ventasId;
-    }
-
-    public void setVentasId(String ventasId) {
-        this.ventasId = ventasId;
     }
 
     public Integer getProductoId() {
