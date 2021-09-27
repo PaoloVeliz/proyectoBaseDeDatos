@@ -42,6 +42,9 @@ public class Cliente {
     @JsonIgnoreProperties("cliente")
     private List<CuentasPorCobrar> cuentasPorCobrarList;
 
+
+
+
     public Cliente(){}
 
     public Cliente(String nombre, String apellidos, String correo, String direccion, DetalleCliente detalleCliente) {

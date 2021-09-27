@@ -15,17 +15,22 @@ public class RequestDTO {
     @JsonProperty("cliente")
     private ClienteDTO clienteDTO;
 
-    @JsonProperty("proveedor")
-    private ProveedoresDTO proveedoresDTO;
+    @JsonProperty("venta")
+    private VentaDTO ventaDTO;
 
-    public ProveedoresDTO getProveedoresDTO() {
-        return proveedoresDTO;
-    }
+    @JsonProperty("compra")
+    private CompraDTO compraDTO;
 
-    public void setProveedoresDTO(ProveedoresDTO proveedoresDTO) {
-        this.proveedoresDTO = proveedoresDTO;
-    }
+    @JsonProperty("inventario")
+    private InventarioDTO inventarioDTO;
 
+    @JsonProperty("detalle_venta")
+    private List<DetalleVentasDTO> detalleVentasDTO;
+
+    @JsonProperty("detalle_compra")
+    private List<DetalleCompraDTO> detalleCompraDTO;
+
+    //++++++++++++++++++++++++++++++++METODOS DE CLIENTES
     public ClienteDTO getClienteDTO() {
         return clienteDTO;
     }
@@ -34,11 +39,55 @@ public class RequestDTO {
         this.clienteDTO = clienteDTO;
     }
 
+    //++++++++++++++++++++++++++++++METODOS DE DETALLES DE CLIENTES
     public DetalleClienteDTO getDetalleClienteDTO() {
         return detalleClienteDTO;
     }
 
     public void setDetalleClienteDTO(DetalleClienteDTO detalleClienteDTO) {
         this.detalleClienteDTO = detalleClienteDTO;
+    }
+
+    //++++++++++++++++++++++++++++METODOS DE INVENTARIO
+    public InventarioDTO getInventarioDTO() {
+        return inventarioDTO;
+    }
+
+    public void setInventarioDTO(InventarioDTO inventarioDTO) {
+        this.inventarioDTO = inventarioDTO;
+    }
+
+    //++++++++++++++++++++++++++++METODOS DE VENTAS
+    public VentaDTO getVentaDTO() {
+        return ventaDTO;
+    }
+
+    public void setVentaDTO(VentaDTO ventaDTO) {
+        this.ventaDTO = ventaDTO;
+    }
+
+    //++++++++++++++++++++++++++++METODOS DE COMPRAS
+    public CompraDTO getCompraDTO() {
+        return compraDTO;
+    }
+
+    public void setCompraDTO(CompraDTO compraDTO) {
+        this.compraDTO = compraDTO;
+    }
+
+    //+++++++++++++++++++++++++++++METODOS DE DETALLE_COMPRAS
+    public void setDetalleCompraDTO(List<DetalleCompraDTO> detalleCompraDTO) {
+        this.detalleCompraDTO = detalleCompraDTO;
+    }
+
+    public List<DetalleCompraDTO> getDetalleCompraDTO() {
+        return detalleCompraDTO;
+    }
+    //++++++++++++++++++++++++++++METODOS DE DETALLE_VENTAS
+    public void setDetalleVentasDTO(List<DetalleVentasDTO> detalleVentasDTO) {
+        this.detalleVentasDTO = detalleVentasDTO;
+    }
+    public List<DetalleVentasDTO> getDetalleVentasDTO() {
+        return detalleVentasDTO;
     }
 }

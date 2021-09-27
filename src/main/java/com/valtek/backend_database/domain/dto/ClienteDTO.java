@@ -13,13 +13,12 @@ public class ClienteDTO {
     private String apellidos;
     private String correo;
     private String direccion;
-
     private Integer detalleCliente_id;
 
     @JsonProperty("telefonos")
     private List<TelefonoDTO> telefonoDTO;
 
-    public ClienteDTO() {
+  public ClienteDTO() {
 
     }
 
