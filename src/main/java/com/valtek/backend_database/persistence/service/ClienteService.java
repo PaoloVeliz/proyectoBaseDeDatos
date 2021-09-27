@@ -64,4 +64,12 @@ public class ClienteService {
     public List<Cliente> getAllCostumers(){
         return clienteRepository.findAll();
     }
+
+    public void remove(Integer id) throws BusinessException {
+        Optional<Cliente> deleted = clienteRepository.findById(id);
+        if (deleted.isEmpty()) {
+            throw new BusinessException("BAD_REQUEST", "El cliente no existe");
+        }
+        clienteRepository.delete(deleted.get());
+    }
 }

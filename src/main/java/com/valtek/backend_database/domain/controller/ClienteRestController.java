@@ -43,4 +43,16 @@ public class ClienteRestController {
     List<DetalleCliente> getCustomerType () {
         return clienteDetalleService.getAll();
     }
+
+    @DeleteMapping("/{id}")
+    ResponseEntity deleteCustomer(@PathVariable Integer id) throws BusinessException {
+        clienteService.remove(id);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
+
+    @DeleteMapping("/type/{id}")
+    ResponseEntity deteleType(@PathVariable Integer id) throws BusinessException {
+        clienteDetalleService.remove(id);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
 }
