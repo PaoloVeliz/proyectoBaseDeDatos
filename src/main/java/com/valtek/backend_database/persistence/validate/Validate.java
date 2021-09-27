@@ -21,4 +21,10 @@ public class Validate {
             throw new BusinessException("BAD_REQUEST", "Es necesario asignar un tipo de cliente");
         }
     }
+
+    public static void validateProveedor(RequestDTO requestDTO) throws BusinessException {
+        if (requestDTO.getProveedoresDTO().getNombres() == null) {
+            throw new BusinessException("BAD_REQUEST", "Es necesario asignar un nombre de proveedor");
+        }
+    }
 }

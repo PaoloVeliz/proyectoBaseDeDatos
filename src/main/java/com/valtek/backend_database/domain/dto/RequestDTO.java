@@ -15,6 +15,17 @@ public class RequestDTO {
     @JsonProperty("cliente")
     private ClienteDTO clienteDTO;
 
+    @JsonProperty("proveedor")
+    private ProveedoresDTO proveedoresDTO;
+
+    public ProveedoresDTO getProveedoresDTO() {
+        return proveedoresDTO;
+    }
+
+    public void setProveedoresDTO(ProveedoresDTO proveedoresDTO) {
+        this.proveedoresDTO = proveedoresDTO;
+    }
+
     public ClienteDTO getClienteDTO() {
         return clienteDTO;
     }

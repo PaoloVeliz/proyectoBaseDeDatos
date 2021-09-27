@@ -40,19 +40,8 @@ public class ClienteService {
     private PhoneFillUtils phoneFillUtils;
 
     @Transactional
-    public void saveACostumer(Cliente cliente, DetalleCliente detalleCliente, List<Telefono> telefonos){
-        clienteRepository.save(cliente);
-        detalleClienteRepository.save(detalleCliente);
-        telefonos.stream()
-                .peek(telefono -> LOG.info("telefono agregado " + telefono))
-                .forEach(telefono -> telefonoRepository.save(telefono));
-
-    }
-
     public Cliente saveCustomer(RequestDTO requestDTO) throws BusinessException {
         Validate.validateCliente(requestDTO);
-        System.out.println(requestDTO.getClienteDTO().getDetalleCliente_id());
-        System.out.println(requestDTO.getClienteDTO().getDetalleCliente_id());
         Optional<DetalleCliente> foundCustomerType = detalleClienteRepository.findById(requestDTO.getClienteDTO().getDetalleCliente_id());
         if(foundCustomerType.isEmpty()) {
             throw new BusinessException("BAD_REQUEST", "El tipo de cliente no existe");
