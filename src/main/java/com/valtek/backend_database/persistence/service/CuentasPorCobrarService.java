@@ -11,7 +11,7 @@ import java.util.List;
 
 @Service
 public class CuentasPorCobrarService {
-    private final Log LOG = LogFactory.getLog(UsuarioService.class);
+    /* private final Log LOG = LogFactory.getLog(UsuarioService.class);
     private CuentasPorCobrarRepository cuentasPorCobrarRepository;
 
     @Transactional
@@ -42,6 +42,6 @@ public class CuentasPorCobrarService {
                             return cuentasPorCobrarRepository.save(cuentasPorCobrar);
                         }
                 ).get();
-    }
+    } */
 
 }

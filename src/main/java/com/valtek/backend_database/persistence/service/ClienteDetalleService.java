@@ -27,4 +27,5 @@ public class ClienteDetalleService {
     public List<DetalleCliente> getAll () {
         return detalleClienteRepository.findAll();
     }
+
 }

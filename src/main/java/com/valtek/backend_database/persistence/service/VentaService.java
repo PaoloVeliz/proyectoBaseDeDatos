@@ -14,7 +14,7 @@ import java.util.List;
 
 @Service
 public class VentaService {
-    private final Log LOG = LogFactory.getLog(UsuarioService.class);
+    /* private final Log LOG = LogFactory.getLog(UsuarioService.class);
     private VentaRepository ventaRepository;
     private DetalleVentasRepository detalleVentasRepository;
 
@@ -63,5 +63,5 @@ public class VentaService {
 
     public List<DetalleVentas> showAllSalesDetails(Iterable<String> idVenta){
         return detalleVentasRepository.findAllById(idVenta);
-    }
+    } */
 }

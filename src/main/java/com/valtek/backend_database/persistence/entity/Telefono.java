@@ -1,5 +1,7 @@
 package com.valtek.backend_database.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 
 @Entity
@@ -7,24 +9,25 @@ import javax.persistence.*;
 public class Telefono {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private Integer id;
 
     @Column(name = "number")
     private String numero;
 
-    @ManyToOne
-    @JoinColumn(name = "customer_id")
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "customer_id", referencedColumnName = "id")
+    @JsonIgnoreProperties("telefonoList")
     private Cliente cliente;
 
     public Telefono() {
 
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -42,14 +45,5 @@ public class Telefono {
 
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
-    }
-
-    @Override
-    public String toString() {
-        return "Telefono{" +
-                "id='" + id + '\'' +
-                ", numero='" + numero + '\'' +
-                ", cliente=" + cliente +
-                '}';
     }
 }

@@ -14,7 +14,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/inventario")
 public class InventarioRestController {
-    private final InventarioService inventarioService;
+    /* private final InventarioService inventarioService;
 
     public InventarioRestController(InventarioService inventarioService) {
         this.inventarioService = inventarioService;
@@ -33,7 +33,7 @@ public class InventarioRestController {
     @PostMapping("/")
     ResponseEntity<Inventario> newProduct(@RequestBody Inventario inventario){
         return new ResponseEntity<>(inventarioService.saveProduct(inventario), HttpStatus.CREATED);
-    }
+    }*/
 
 
 }

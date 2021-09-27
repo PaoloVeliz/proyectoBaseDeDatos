@@ -1,68 +1,52 @@
 package com.valtek.backend_database.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "sales")
 public class Venta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private Integer id;
 
     @Column(name = "date")
     private LocalDateTime fecha;
 
+    @Column(name = "total")
     private Integer total;
 
     @Column(name = "alreadypaid")
     private boolean yapagado;
 
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id", referencedColumnName = "username")
+    @JsonIgnoreProperties("ventaList")
+    private Usuario usuario;
 
-    @Column(name = "costumers_id")
-    private String clientesId;
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "customer_id", referencedColumnName = "id")
+    @JsonIgnoreProperties("ventaList")
+    private Cliente cliente;
 
-    @OneToMany(mappedBy = "venta")
-    public DetalleVentas detalleVentas;
+    @OneToMany(mappedBy = "venta", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("venta")
+    private List<CuentasPorCobrar> cuentasPorCobrarList;
 
-    @Column(name = "names")
-    private String nombre;
-
-    @Column(name = "user_id")
-    private String usuarioId;
+    @OneToMany(mappedBy = "venta", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("venta")
+    private List<DetalleVentas> detalleVentasList;
 
     public Venta(){}
 
-    public Venta(String id, LocalDateTime fecha, Integer total, boolean yapagado, String clientesId ,String nombre, String usuarioId, DetalleVentas detalleVentas) {
-        this.id = id;
-        this.fecha = fecha;
-        this.total = total;
-        this.yapagado = yapagado;
-        this.detalleVentas = detalleVentas;
-        this.nombre = nombre;
-        this.usuarioId = usuarioId;
-        this.clientesId = clientesId;
-    }
-
-    public void setClientesId(String clientesId){
-        this.clientesId = clientesId;
-    }
-    public String getClientesId(){
-        return clientesId;
-    }
-    public String getUsuarioId() {
-        return usuarioId;
-    }
-
-    public void setUsuarioId(String usuarioId) {
-        this.usuarioId = usuarioId;
-    }
-
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -90,11 +74,35 @@ public class Venta {
         this.yapagado = yapagado;
     }
 
-    public String getNombre() {
-        return nombre;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public List<CuentasPorCobrar> getCuentasPorCobrarList() {
+        return cuentasPorCobrarList;
+    }
+
+    public void setCuentasPorCobrarList(List<CuentasPorCobrar> cuentasPorCobrarList) {
+        this.cuentasPorCobrarList = cuentasPorCobrarList;
+    }
+
+    public List<DetalleVentas> getDetalleVentasList() {
+        return detalleVentasList;
+    }
+
+    public void setDetalleVentasList(List<DetalleVentas> detalleVentasList) {
+        this.detalleVentasList = detalleVentasList;
     }
 }

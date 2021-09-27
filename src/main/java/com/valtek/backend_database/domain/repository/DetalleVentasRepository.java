@@ -5,6 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface DetalleVentasRepository extends JpaRepository<DetalleVentas,String> {
-    DetalleVentas findByventasId(String ventasId);
+public interface DetalleVentasRepository extends JpaRepository<DetalleVentas,Integer> {
 }

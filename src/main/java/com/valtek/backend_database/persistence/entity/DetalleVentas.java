@@ -1,5 +1,7 @@
 package com.valtek.backend_database.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -9,16 +11,7 @@ import java.time.LocalDateTime;
 public class DetalleVentas {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String  id;
-
-    @Column(name = "costumers_id")
-    private Integer clientesId;
-
-    @Column(name = "date")
-    private LocalDateTime fecha;
-
-    @Column(name = "names")
-    private String nombre;
+    private Integer  id;
 
     @Column(name = "amount")
     private Integer cantidad;
@@ -26,56 +19,24 @@ public class DetalleVentas {
     @Column(name = "price")
     private Integer precio;
 
-    private Integer total;
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "product_id", referencedColumnName = "id")
+    @JsonIgnoreProperties("detalleVentaList")
+    private Inventario inventario;
 
-    @ManyToOne
-    @JoinColumn(name = "sales_id")
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "sale_id", referencedColumnName = "id")
+    @JsonIgnoreProperties("detalleVentaList")
     private Venta venta;
-
-    @Column(name = "product_id")
-    private Integer productoId;
 
     public DetalleVentas(){}
 
-    public DetalleVentas(String id, Integer clientesId, LocalDateTime fecha, String nombre, Integer cantidad, Integer precio, Integer total, Integer productoId, Venta venta) {
-        this.id = id;
-        this.clientesId = clientesId;
-        this.fecha = fecha;
-        this.nombre = nombre;
-        this.cantidad = cantidad;
-        this.precio = precio;
-        this.total = total;
-        this.venta = venta;
-        this.productoId = productoId;
-    }
-    public Venta getVenta(){
-            return venta;
-    }
-    public void setVenta(Venta venta){
-        this.venta = venta;
-    }
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
-    }
-
-    public LocalDateTime getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(LocalDateTime fecha) {
-        this.fecha = fecha;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
     }
 
     public Integer getCantidad() {
@@ -94,19 +55,19 @@ public class DetalleVentas {
         this.precio = precio;
     }
 
-    public Integer getTotal() {
-        return total;
+    public Inventario getInventario() {
+        return inventario;
     }
 
-    public void setTotal(Integer total) {
-        this.total = total;
+    public void setInventario(Inventario inventario) {
+        this.inventario = inventario;
     }
 
-    public Integer getProductoId() {
-        return productoId;
+    public Venta getVenta() {
+        return venta;
     }
 
-    public void setProductoId(Integer productoId) {
-        this.productoId = productoId;
+    public void setVenta(Venta venta) {
+        this.venta = venta;
     }
 }

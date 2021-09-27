@@ -1,13 +1,16 @@
 package com.valtek.backend_database.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "providers")
 public class Proveedores {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private Integer id;
 
     @Column(name = "names")
     private String nombres;
@@ -21,21 +24,21 @@ public class Proveedores {
     @Column(name = "address")
     private String direccion;
 
+    @OneToMany(mappedBy = "proveedores", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("proveedores")
+    private List<Compra> compraList;
+
+    @OneToMany(mappedBy = "proveedores", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("proveedores")
+    private List<CuentasPorPagar> cuentasPorPagarList;
+
     public Proveedores(){}
 
-    public Proveedores(String id, String nombres, String apellidos, String correo, String direccion) {
-        this.id = id;
-        this.nombres = nombres;
-        this.apellidos = apellidos;
-        this.correo = correo;
-        this.direccion = direccion;
-    }
-
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -69,5 +72,21 @@ public class Proveedores {
 
     public void setDireccion(String direccion) {
         this.direccion = direccion;
+    }
+
+    public List<Compra> getCompraList() {
+        return compraList;
+    }
+
+    public void setCompraList(List<Compra> compraList) {
+        this.compraList = compraList;
+    }
+
+    public List<CuentasPorPagar> getCuentasPorPagarList() {
+        return cuentasPorPagarList;
+    }
+
+    public void setCuentasPorPagarList(List<CuentasPorPagar> cuentasPorPagarList) {
+        this.cuentasPorPagarList = cuentasPorPagarList;
     }
 }

@@ -16,12 +16,4 @@ public class CustomerFillUtils {
         cliente.setDetalleCliente(detalleCliente);
         return cliente;
     }
-
-    public void fillCustomerDto(Cliente customer) {
-
-    }
-
-    private static <T> T check(T element) {
-        return element == null ? null : element;
-    }
 }

@@ -45,7 +45,6 @@ public class UsuarioService {
     }
     public void deleteAUser(String id){
         usuarioRepository.deleteById(id);
-        detalleUsuarioRepository.deleteById(detalleUsuarioRepository.findByusuarioId(id).getId());
     }
 
     public Usuario updatePassword(Usuario newUser, String id){
@@ -60,20 +59,4 @@ public class UsuarioService {
                 ).get();
     }
 
-    public DetalleUsuario updateUserDetails(DetalleUsuario newDetails, String id){
-        return
-                detalleUsuarioRepository.findById(detalleUsuarioRepository.findByusuarioId(id).getId())
-                .map(
-                        detalleUsuario -> {
-                            detalleUsuario.setNombres(newDetails.getNombres());
-                            detalleUsuario.setApellidos(newDetails.getApellidos());
-                            detalleUsuario.setCorreo(newDetails.getCorreo());
-                            detalleUsuario.setUsuarioId(newDetails.getUsuarioId());
-                            detalleUsuario.setId(newDetails.getId());
-                            detalleUsuario.setPosicion(newDetails.getPosicion());
-                            detalleUsuario.setDireccion(newDetails.getDireccion());
-                            return detalleUsuarioRepository.save(detalleUsuario);
-                        }
-                ).get();
-    }
 }

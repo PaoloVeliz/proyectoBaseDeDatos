@@ -16,7 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/compras")
 public class CompraRestController {
-    private final CompraService compraService;
+    /*private final CompraService compraService;
     private final CuentasPorPagarService cuentasPorPagarService;
 
     public CompraRestController(CompraService compraService, CuentasPorPagarService cuentasPorPagarService) {
@@ -33,7 +33,7 @@ public class CompraRestController {
     List<DetalleCompra> showAllPurchasesDetails(String idPurhcase){
         return compraService.showPurchaseDetails(idPurhcase);
     }
-/*
+
     @PostMapping("/")
     ResponseEntity<Compra> newPurchase(@RequestBody Compra purchase){
         System.out.println(purchase.toString());

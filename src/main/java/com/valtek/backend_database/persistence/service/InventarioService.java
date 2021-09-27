@@ -12,8 +12,7 @@ import java.util.Optional;
 
 @Service
 public class InventarioService {
-    private final Log LOG = LogFactory.getLog(UsuarioService.class);
-    @Autowired
+    /* private final Log LOG = LogFactory.getLog(UsuarioService.class);
     private InventarioRepository inventarioRepository;
 
     public Inventario saveProduct(Inventario producto){
@@ -24,7 +23,7 @@ public class InventarioService {
         return inventarioRepository.findAll();
     }
 
-    public void deleteProduct(String id){
+    public void deleteProduct(Integer id){
         inventarioRepository.deleteById(id);
     }
 
@@ -79,6 +78,6 @@ public class InventarioService {
 
     public Optional<Inventario> getAProduct(String codigoProducto){
         return inventarioRepository.findById(codigoProducto);
-    }
+    } */
 
 }

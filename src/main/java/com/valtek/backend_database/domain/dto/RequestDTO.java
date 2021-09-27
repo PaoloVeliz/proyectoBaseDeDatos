@@ -15,9 +15,6 @@ public class RequestDTO {
     @JsonProperty("cliente")
     private ClienteDTO clienteDTO;
 
-    @JsonProperty("telefonos")
-    private List<TelefonoDTO> telefonoDTO;
-
     @JsonProperty("venta")
     private VentaDTO ventaDTO;
 

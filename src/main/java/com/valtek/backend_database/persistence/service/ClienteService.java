@@ -1,6 +1,5 @@
 package com.valtek.backend_database.persistence.service;
 
-import com.valtek.backend_database.domain.dto.ClienteDTO;
 import com.valtek.backend_database.domain.dto.RequestDTO;
 import com.valtek.backend_database.persistence.entity.Cliente;
 import com.valtek.backend_database.persistence.entity.DetalleCliente;
@@ -9,7 +8,9 @@ import com.valtek.backend_database.domain.repository.ClienteRepository;
 import com.valtek.backend_database.domain.repository.DetalleClienteRepository;
 import com.valtek.backend_database.domain.repository.TelefonoRepository;
 import com.valtek.backend_database.persistence.service.utils.CustomerFillUtils;
-import com.valtek.backend_database.persistence.service.utils.CustomerTypeFillUtils;
+import com.valtek.backend_database.persistence.service.utils.PhoneFillUtils;
+import com.valtek.backend_database.persistence.validate.BusinessException;
+import com.valtek.backend_database.persistence.validate.Validate;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,9 @@ public class ClienteService {
     @Autowired
     private CustomerFillUtils customerFillUtils;
 
+    @Autowired
+    private PhoneFillUtils phoneFillUtils;
+
     @Transactional
     public void saveACostumer(Cliente cliente, DetalleCliente detalleCliente, List<Telefono> telefonos){
         clienteRepository.save(cliente);
@@ -45,23 +49,28 @@ public class ClienteService {
 
     }
 
-    public void saveCustomer(RequestDTO requestDTO) {
-        /* Optional<DetalleCliente> foundCustomerType = detalleClienteRepository.findById(requestDTO.getClienteDTO().getDetalleCliente_id());
+    public Cliente saveCustomer(RequestDTO requestDTO) throws BusinessException {
+        Validate.validateCliente(requestDTO);
+        System.out.println(requestDTO.getClienteDTO().getDetalleCliente_id());
+        System.out.println(requestDTO.getClienteDTO().getDetalleCliente_id());
+        Optional<DetalleCliente> foundCustomerType = detalleClienteRepository.findById(requestDTO.getClienteDTO().getDetalleCliente_id());
         if(foundCustomerType.isEmpty()) {
-
+            throw new BusinessException("BAD_REQUEST", "El tipo de cliente no existe");
         }
-
-        Cliente newCustomer = customerFillUtils.fillCustomer(requestDTO.getClienteDTO(), foundCustomerType);
+        Cliente newCustomer = customerFillUtils.fillCustomer(requestDTO.getClienteDTO(), foundCustomerType.get());
         Cliente savedCustomer = clienteRepository.save(newCustomer);
 
-        return savedCustomer;*/
+        if (requestDTO.getClienteDTO().getTelefonoDTO().size() > 0) {
+            requestDTO.getClienteDTO().getTelefonoDTO().forEach(telefono -> {
+                Telefono newTelefono = phoneFillUtils.fillPhone(telefono, newCustomer);
+                telefonoRepository.save(newTelefono);
+            });
+        }
+
+        return savedCustomer;
     }
 
     public List<Cliente> getAllCostumers(){
         return clienteRepository.findAll();
-    }
-
-    public void deleteACostumer(String id){
-        clienteRepository.deleteById(id);
     }
 }
