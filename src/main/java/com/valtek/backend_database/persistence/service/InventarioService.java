@@ -1,86 +1,65 @@
 package com.valtek.backend_database.persistence.service;
 
+import com.valtek.backend_database.domain.dto.RequestDTO;
+import com.valtek.backend_database.persistence.entity.DetalleCliente;
 import com.valtek.backend_database.persistence.entity.Inventario;
 import com.valtek.backend_database.domain.repository.InventarioRepository;
+import com.valtek.backend_database.persistence.service.utils.InventoryFillUtils;
+import com.valtek.backend_database.persistence.validate.Validate;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class InventarioService {
-/*
-   private final Log LOG = LogFactory.getLog(UsuarioService.class);
-    private InventarioRepository inventarioRepository;
 
-    public Inventario saveProduct(Inventario producto){
-         return inventarioRepository.save(producto);
+    @Autowired
+    InventarioRepository inventarioRepository;
+
+    @Autowired
+    InventoryFillUtils inventoryFillUtils;
+
+
+    public Inventario saveAProduct (RequestDTO requestDTO) throws Exception {
+       Inventario inventario = inventoryFillUtils.fillProduct(requestDTO.getInventarioDTO());
+       return inventarioRepository.save(inventario);
     }
 
-    public List<Inventario> getAllProducts(){
+
+    public List<Inventario> getAllProducts () {
         return inventarioRepository.findAll();
     }
 
-    public void deleteProduct(Integer id){
-        inventarioRepository.deleteById(id);
-    }
 
-    public Inventario updateProduct(Inventario newProduct, String id){
+    public Inventario updateWhenASale(Inventario newProduct, Integer newAmount){
         return
-                inventarioRepository.findById(id)
-                .map(
-                        inventario -> {
-                            inventario.setCodigoProducto(newProduct.getCodigoProducto());
-                            inventario.setNombreProducto(newProduct.getNombreProducto());
-                            inventario.setCantidad(newProduct.getCantidad());
-                            inventario.setPrecio(newProduct.getPrecio());
-                            return inventarioRepository.save(inventario);
-                        }
-                ).get();
-    }
-
-    public int getAProductAmount(String codigoProducto){
-        Optional<Inventario> producto = inventarioRepository.findById(codigoProducto);
-        return producto.get().getCantidad();
-    }
-
-    public Inventario updateWhenASale(Inventario newProduct, String id){
-        int previous_amount = getAProductAmount(id);
-        return
-                inventarioRepository.findById(id)
-                .map(
-                        inventario -> {
-                            inventario.setCodigoProducto(newProduct.getCodigoProducto());
-                            inventario.setNombreProducto(newProduct.getNombreProducto());
-                            inventario.setCantidad(previous_amount - newProduct.getCantidad());
-                            inventario.setPrecio(newProduct.getPrecio());
-                            return inventarioRepository.save(inventario);
-                        }
-                ).get();
-    }
-*/
-/*
-    public Inventario updateWhenAPurchase(Inventario newProduct, String id){
-        int previous_amount = getAProductAmount(id);
-        return
-                inventarioRepository.findById(id)
+                inventarioRepository.findById(newProduct.getCodigoProducto())
                         .map(
                                 inventario -> {
                                     inventario.setCodigoProducto(newProduct.getCodigoProducto());
                                     inventario.setNombreProducto(newProduct.getNombreProducto());
-                                    inventario.setCantidad(previous_amount - newProduct.getCantidad());
+                                    inventario.setCantidad(newProduct.getCantidad()-newAmount);
                                     inventario.setPrecio(newProduct.getPrecio());
                                     return inventarioRepository.save(inventario);
                                 }
                         ).get();
     }
- */
-    /*
-    public Optional<Inventario> getAProduct(String codigoProducto){
-        return inventarioRepository.findById(codigoProducto);
+    public Inventario updateWhenAPurchase(Inventario newProduct, Integer newAmount) {
+        return
+                inventarioRepository.findById(newProduct.getCodigoProducto())
+                        .map(
+                                inventario -> {
+                                    inventario.setCodigoProducto(newProduct.getCodigoProducto());
+                                    inventario.setNombreProducto(newProduct.getNombreProducto());
+                                    inventario.setCantidad(newProduct.getCantidad() + newAmount);
+                                    inventario.setPrecio(newProduct.getPrecio());
+                                    return inventarioRepository.save(inventario);
+                                }
+                        ).get();
     }
-     */
 }

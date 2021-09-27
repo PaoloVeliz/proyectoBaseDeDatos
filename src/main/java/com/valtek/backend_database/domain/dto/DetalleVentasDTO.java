@@ -12,41 +12,18 @@ import java.time.LocalDateTime;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class DetalleVentasDTO {
-
-    private Integer clientesId;
-    private LocalDateTime fecha;
-    private String nombre;
-    private Integer cantidad;
+/*
+ private Integer cantidad;
+    private String compraId;
     private Integer precio;
-    private Integer total;
-    private Venta venta;
+    private Integer productoId;
+ */
+    private Integer cantidad;
+    private Integer ventaId;
+    private Integer precio;
     private Integer productoId;
 
     public DetalleVentasDTO(){}
-
-    public Integer getClientesId() {
-        return clientesId;
-    }
-
-    public void setClientesId(Integer clientesId) {
-        this.clientesId = clientesId;
-    }
-
-    public LocalDateTime getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(LocalDateTime fecha) {
-        this.fecha = fecha;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
 
     public Integer getCantidad() {
         return cantidad;
@@ -56,28 +33,20 @@ public class DetalleVentasDTO {
         this.cantidad = cantidad;
     }
 
+    public Integer getVentaId() {
+        return ventaId;
+    }
+
+    public void setVentaId(Integer ventaId) {
+        this.ventaId = ventaId;
+    }
+
     public Integer getPrecio() {
         return precio;
     }
 
     public void setPrecio(Integer precio) {
         this.precio = precio;
-    }
-
-    public Integer getTotal() {
-        return total;
-    }
-
-    public void setTotal(Integer total) {
-        this.total = total;
-    }
-
-    public Venta getVenta() {
-        return venta;
-    }
-
-    public void setVenta(Venta venta) {
-        this.venta = venta;
     }
 
     public Integer getProductoId() {

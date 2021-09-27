@@ -23,6 +23,9 @@ public class CompraService {
     private final Log LOG = LogFactory.getLog(UsuarioService.class);
 
     @Autowired
+    private InventarioService inventarioService;
+
+    @Autowired
     private CompraRepository compraRepository;
 
     @Autowired
@@ -73,6 +76,7 @@ public class CompraService {
                 }
                 DetalleCompra newDetalleCompra = purchaseDetailsFillUtils.fillPurchaseDetail(detalleCompraDTO,newPurchase,foundProduct.get());
                 detalleCompraRepository.save(newDetalleCompra);
+                inventarioService.updateWhenAPurchase(foundProduct.get(),newDetalleCompra.getCantidad());
             });
         }
 

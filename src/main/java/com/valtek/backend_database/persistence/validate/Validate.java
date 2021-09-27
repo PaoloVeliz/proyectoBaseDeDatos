@@ -1,6 +1,8 @@
 package com.valtek.backend_database.persistence.validate;
 
 import com.valtek.backend_database.domain.dto.RequestDTO;
+import com.valtek.backend_database.persistence.entity.DetalleVentas;
+import com.valtek.backend_database.persistence.entity.Inventario;
 
 public class Validate {
 
@@ -36,6 +38,26 @@ public class Validate {
         }
         if (requestDTO.getCompraDTO().getDetalleCompraDTO().size() == 0 ) {
             throw new BusinessException("BAD_REQUEST", "Es necesario asignar un producto minimo");
+        }
+    }
+    public static void validateVenta(RequestDTO requestDTO) throws BusinessException {
+        if (requestDTO.getVentaDTO().getUsuarioId() == null ) {
+            throw new BusinessException("BAD_REQUEST", "Es necesario asignar un usuario");
+        }
+        if (requestDTO.getVentaDTO().getClienteId() == null ) {
+            throw new BusinessException("BAD_REQUEST", "Es necesario asignar un cliente");
+        }
+        if (requestDTO.getVentaDTO().getDetalleVentasDTO().size() == 0 ) {
+            throw new BusinessException("BAD_REQUEST", "Es necesario asignar un producto minimo");
+        }
+    }
+
+    public static void validateAnAmountChange(DetalleVentas detalleVentas, Inventario inventario) throws BusinessException {
+        if (detalleVentas.getCantidad() == null ) {
+            throw new BusinessException("BAD_REQUEST", "La venta no posee cantidad a vender");
+        }
+        if (detalleVentas.getCantidad() > inventario.getCantidad()) {
+            throw new BusinessException("BAD_REQUEST", "La venta supera la cantidad que existe en el inventario");
         }
     }
 }
