@@ -8,11 +8,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface DetalleUsuarioRepository extends JpaRepository<DetalleUsuario,String> {
+public interface DetalleUsuarioRepository extends JpaRepository<DetalleUsuario,Integer> {
 
     //List<DetalleUsuario> findByusuarioId(String usuarioId);
 
     //Optional<DetalleUsuario> findByusuarioId(String usuarioId);
 
-    DetalleUsuario findByusuarioId(String usuarioId);
+    // DetalleUsuario findByusuarioId(String usuarioId);
 }

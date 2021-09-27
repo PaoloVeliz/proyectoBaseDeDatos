@@ -14,7 +14,7 @@ import java.util.Optional;
 
 @Service
 public class CompraService {
-    private final Log LOG = LogFactory.getLog(UsuarioService.class);
+    /* private final Log LOG = LogFactory.getLog(UsuarioService.class);
     private CompraRepository compraRepository;
     private DetalleCompraRepository detalleCompraRepository;
 
@@ -64,5 +64,5 @@ public class CompraService {
                             return compraRepository.save(compra);
                         }
                 ).get();
-    }
+    } */
 }

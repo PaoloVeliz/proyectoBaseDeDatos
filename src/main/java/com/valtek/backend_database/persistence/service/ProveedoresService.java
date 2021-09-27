@@ -10,7 +10,7 @@ import java.util.List;
 
 @Service
 public class ProveedoresService {
-    private final Log LOG = LogFactory.getLog(UsuarioService.class);
+    /* private final Log LOG = LogFactory.getLog(UsuarioService.class);
     private ProveedoresRepository proveedoresRepository;
 
     public ProveedoresService(){}
@@ -44,5 +44,5 @@ public class ProveedoresService {
                             return proveedoresRepository.save(proveedores);
                         }
                 ).get();
-    }
+    } */
 }

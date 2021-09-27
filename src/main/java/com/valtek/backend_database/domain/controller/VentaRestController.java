@@ -18,7 +18,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/ventas")
 public class VentaRestController {
-    private final VentaService ventaService;
+    /* private final VentaService ventaService;
     private final CuentasPorCobrarService cuentasPorCobrarService;
 
     public VentaRestController(VentaService ventaService, CuentasPorCobrarService cuentasPorCobrarService) {
@@ -47,5 +47,5 @@ public class VentaRestController {
     ResponseEntity<CuentasPorCobrar> newResceivable(@RequestBody CuentasPorCobrar receivavble){
         //System.out.println(receivavble.toString());
         return new ResponseEntity<>(cuentasPorCobrarService.saveReceivable(receivavble),HttpStatus.CREATED);
-    }
+    } */
 }

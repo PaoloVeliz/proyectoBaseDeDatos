@@ -7,8 +7,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface DetalleCompraRepository extends JpaRepository<DetalleCompra,String> {
-    List<DetalleCompra> findBycomprasId(String comprasId);
+public interface DetalleCompraRepository extends JpaRepository<DetalleCompra,Integer> {
+    // List<DetalleCompra> findBycomprasId(String comprasId);
 
 
 }

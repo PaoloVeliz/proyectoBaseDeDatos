@@ -1,5 +1,8 @@
 package com.valtek.backend_database.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.List;
@@ -10,7 +13,7 @@ public class DetalleCliente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private String id;
+    private Integer id;
 
     @Column(name = "name")
     private String nombre;
@@ -18,18 +21,19 @@ public class DetalleCliente {
     @Column(name = "discount")
     private Integer descuento;
 
-    @OneToMany(mappedBy = "detalleCliente")
+    @OneToMany(mappedBy = "detalleCliente", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("detalleCliente")
     private List<Cliente> clienteList;
 
     public DetalleCliente(){
 
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -55,15 +59,5 @@ public class DetalleCliente {
 
     public void setClienteList(List<Cliente> clienteList) {
         this.clienteList = clienteList;
-    }
-
-    @Override
-    public String toString() {
-        return "DetalleCliente{" +
-                "id='" + id + '\'' +
-                ", nombre='" + nombre + '\'' +
-                ", descuento=" + descuento +
-                ", clienteList=" + clienteList +
-                '}';
     }
 }

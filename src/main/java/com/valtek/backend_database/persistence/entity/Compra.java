@@ -1,46 +1,53 @@
 package com.valtek.backend_database.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "purchases")
 public class Compra {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private Integer id;
 
     @Column(name = "date")
     private LocalDateTime fecha;
 
+    @Column(name = "total")
     private Integer total;
 
     @Column(name = "alreadypaid")
     private boolean yapagado;
 
-    @Column(name = "providers_id")
-    private Integer proveedoresId;
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id", referencedColumnName = "username")
+    @JsonIgnoreProperties("compraList")
+    private Usuario usuario;
 
-    @Column(name = "names")
-    private String nombre;
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "provider_id", referencedColumnName = "id")
+    @JsonIgnoreProperties("compraList")
+    private Proveedores proveedores;
+
+    @OneToMany(mappedBy = "compra", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("compra")
+    private List<DetalleCompra> detalleCompraList;
+
+    @OneToMany(mappedBy = "compra", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("compra")
+    private List<CuentasPorPagar> cuentasPorPagarList;
 
     public Compra(){}
 
-    public Compra(String id, LocalDateTime fecha, Integer total, boolean yapagado, Integer proveedoresId, String nombre) {
-        this.id = id;
-        this.fecha = fecha;
-        this.total = total;
-        this.yapagado = yapagado;
-        this.proveedoresId = proveedoresId;
-        this.nombre = nombre;
-    }
-
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -68,19 +75,35 @@ public class Compra {
         this.yapagado = yapagado;
     }
 
-    public Integer getProveedoresId() {
-        return proveedoresId;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setProveedoresId(Integer proveedoresId) {
-        this.proveedoresId = proveedoresId;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
-    public String getNombre() {
-        return nombre;
+    public Proveedores getProveedores() {
+        return proveedores;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setProveedores(Proveedores proveedores) {
+        this.proveedores = proveedores;
+    }
+
+    public List<DetalleCompra> getDetalleCompraList() {
+        return detalleCompraList;
+    }
+
+    public void setDetalleCompraList(List<DetalleCompra> detalleCompraList) {
+        this.detalleCompraList = detalleCompraList;
+    }
+
+    public List<CuentasPorPagar> getCuentasPorPagarList() {
+        return cuentasPorPagarList;
+    }
+
+    public void setCuentasPorPagarList(List<CuentasPorPagar> cuentasPorPagarList) {
+        this.cuentasPorPagarList = cuentasPorPagarList;
     }
 }

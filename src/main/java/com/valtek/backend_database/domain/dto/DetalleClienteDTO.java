@@ -11,7 +11,6 @@ import java.util.List;
 public class DetalleClienteDTO {
     private String nombre;
     private Integer descuento;
-    private List<ClienteDTO> clienteDTOS;
 
     public String getNombre() {
         return nombre;
@@ -27,13 +26,5 @@ public class DetalleClienteDTO {
 
     public void setDescuento(Integer descuento) {
         this.descuento = descuento;
-    }
-
-    public List<ClienteDTO> getClienteDTOS() {
-        return clienteDTOS;
-    }
-
-    public void setClienteDTOS(List<ClienteDTO> clienteDTOS) {
-        this.clienteDTOS = clienteDTOS;
     }
 }

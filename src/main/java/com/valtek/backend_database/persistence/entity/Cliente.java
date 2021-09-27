@@ -1,5 +1,8 @@
 package com.valtek.backend_database.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -8,7 +11,7 @@ import java.util.List;
 public class Cliente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private Integer id;
 
     @Column(name = "name")
     private String nombre;
@@ -22,29 +25,38 @@ public class Cliente {
     @Column(name = "address")
     private String direccion;
 
-    @ManyToOne
-    @JoinColumn(name="customerType_id")
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "customer_type_id", referencedColumnName = "id")
+    @JsonIgnoreProperties("clienteList")
     private DetalleCliente detalleCliente;
 
-    @OneToMany(mappedBy = "cliente")
-    private List<Telefono> telefonos;
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("cliente")
+    private List<Telefono> telefonoList;
+
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("cliente")
+    private List<Venta> ventaList;
+
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("cliente")
+    private List<CuentasPorCobrar> cuentasPorCobrarList;
 
     public Cliente(){}
 
-    public Cliente(String nombre, String apellidos, String correo, String direccion, DetalleCliente detalleCliente, List<Telefono> telefonos) {
+    public Cliente(String nombre, String apellidos, String correo, String direccion, DetalleCliente detalleCliente) {
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.correo = correo;
         this.direccion = direccion;
         this.detalleCliente = detalleCliente;
-        this.telefonos = telefonos;
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -88,24 +100,27 @@ public class Cliente {
         this.detalleCliente = detalleCliente;
     }
 
-    public List<Telefono> getTelefonos() {
-        return telefonos;
+    public List<Telefono> getTelefonoList() {
+        return telefonoList;
     }
 
-    public void setTelefonos(List<Telefono> telefonos) {
-        this.telefonos = telefonos;
+    public void setTelefonoList(List<Telefono> telefonoList) {
+        this.telefonoList = telefonoList;
     }
 
-    @Override
-    public String toString() {
-        return "Cliente{" +
-                "id='" + id + '\'' +
-                ", nombre='" + nombre + '\'' +
-                ", apellidos='" + apellidos + '\'' +
-                ", correo='" + correo + '\'' +
-                ", direccion='" + direccion + '\'' +
-                ", detalleCliente=" + detalleCliente +
-                ", telefonos=" + telefonos +
-                '}';
+    public List<Venta> getVentaList() {
+        return ventaList;
+    }
+
+    public void setVentaList(List<Venta> ventaList) {
+        this.ventaList = ventaList;
+    }
+
+    public List<CuentasPorCobrar> getCuentasPorCobrarList() {
+        return cuentasPorCobrarList;
+    }
+
+    public void setCuentasPorCobrarList(List<CuentasPorCobrar> cuentasPorCobrarList) {
+        this.cuentasPorCobrarList = cuentasPorCobrarList;
     }
 }

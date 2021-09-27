@@ -1,9 +1,9 @@
 package com.valtek.backend_database.persistence.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "usuario")
@@ -16,12 +16,15 @@ public class Usuario {
     @Column(name = "password")
     private String contrasena;
 
-    public Usuario(){}
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("usuario")
+    private List<Venta> ventaList;
 
-    public Usuario(String nombreUsuario, String contrasena) {
-        this.nombreUsuario = nombreUsuario;
-        this.contrasena = contrasena;
-    }
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("usuario")
+    private List<Compra> compraList;
+
+    public Usuario(){}
 
     public String getNombreUsuario() {
         return nombreUsuario;
@@ -39,11 +42,19 @@ public class Usuario {
         this.contrasena = contrasena;
     }
 
-    @Override
-    public String toString() {
-        return "Usuario{" +
-                "nombreUsuario='" + nombreUsuario + '\'' +
-                ", contrasena='" + contrasena + '\'' +
-                '}';
+    public List<Venta> getVentaList() {
+        return ventaList;
+    }
+
+    public void setVentaList(List<Venta> ventaList) {
+        this.ventaList = ventaList;
+    }
+
+    public List<Compra> getCompraList() {
+        return compraList;
+    }
+
+    public void setCompraList(List<Compra> compraList) {
+        this.compraList = compraList;
     }
 }

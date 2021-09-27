@@ -1,5 +1,7 @@
 package com.valtek.backend_database.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -9,12 +11,10 @@ import java.time.LocalDateTime;
 public class CuentasPorPagar {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private Integer id;
 
+    @Column(name = "total")
     private Integer total;
-
-    @Column(name = "wanting")
-    private Integer faltante;
 
     @Column(name = "date")
     private LocalDateTime fecha;
@@ -22,33 +22,23 @@ public class CuentasPorPagar {
     @Column(name = "alreadypaid")
     private boolean yapagado;
 
-    @Column(name = "purchases_id")
-    private String comprasCodigo;
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "purchase_id", referencedColumnName = "id")
+    @JsonIgnoreProperties("cuentasPorPagarList")
+    private Compra compra;
 
-    @Column(name = "providers_id")
-    private String proveedoresId;
-
-    @Column(name = "names")
-    private String nombre;
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "provider_id", referencedColumnName = "id")
+    @JsonIgnoreProperties("cuentasPorPagarList")
+    private Proveedores proveedores;
 
     public CuentasPorPagar(){}
 
-    public CuentasPorPagar(String id, Integer total, Integer faltante, LocalDateTime fecha, boolean yapagado, String comprasCodigo, String proveedoresId, String nombre) {
-        this.id = id;
-        this.total = total;
-        this.faltante = faltante;
-        this.fecha = fecha;
-        this.yapagado = yapagado;
-        this.comprasCodigo = comprasCodigo;
-        this.proveedoresId = proveedoresId;
-        this.nombre = nombre;
-    }
-
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -58,14 +48,6 @@ public class CuentasPorPagar {
 
     public void setTotal(Integer total) {
         this.total = total;
-    }
-
-    public Integer getFaltante() {
-        return faltante;
-    }
-
-    public void setFaltante(Integer faltante) {
-        this.faltante = faltante;
     }
 
     public LocalDateTime getFecha() {
@@ -84,27 +66,19 @@ public class CuentasPorPagar {
         this.yapagado = yapagado;
     }
 
-    public String getComprasCodigo() {
-        return comprasCodigo;
+    public Compra getCompra() {
+        return compra;
     }
 
-    public void setComprasCodigo(String comprasCodigo) {
-        this.comprasCodigo = comprasCodigo;
+    public void setCompra(Compra compra) {
+        this.compra = compra;
     }
 
-    public String getProveedoresId() {
-        return proveedoresId;
+    public Proveedores getProveedores() {
+        return proveedores;
     }
 
-    public void setProveedoresId(String proveedoresId) {
-        this.proveedoresId = proveedoresId;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setProveedores(Proveedores proveedores) {
+        this.proveedores = proveedores;
     }
 }

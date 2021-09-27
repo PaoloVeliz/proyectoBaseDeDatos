@@ -2,7 +2,7 @@ package com.valtek.backend_database.domain.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.valtek.backend_database.persistence.entity.Telefono;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
@@ -14,17 +14,28 @@ public class ClienteDTO {
     private String correo;
     private String direccion;
 
-    private String detalleCliente_id;
+    private Integer detalleCliente_id;
+
+    @JsonProperty("telefonos")
+    private List<TelefonoDTO> telefonoDTO;
 
     public ClienteDTO() {
 
     }
 
-    public String getDetalleCliente_id() {
+    public List<TelefonoDTO> getTelefonoDTO() {
+        return telefonoDTO;
+    }
+
+    public void setTelefonoDTO(List<TelefonoDTO> telefonoDTO) {
+        this.telefonoDTO = telefonoDTO;
+    }
+
+    public Integer getDetalleCliente_id() {
         return detalleCliente_id;
     }
 
-    public void setDetalleCliente_id(String detalleCliente_id) {
+    public void setDetalleCliente_id(Integer detalleCliente_id) {
         this.detalleCliente_id = detalleCliente_id;
     }
 

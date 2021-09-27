@@ -10,7 +10,7 @@ import java.util.List;
 
 @Service
 public class CuentasPorPagarService {
-    private final Log LOG = LogFactory.getLog(UsuarioService.class);
+    /* private final Log LOG = LogFactory.getLog(UsuarioService.class);
     private CuentasPorPagarRepository cuentasPorPagarRepository;
 
     public CuentasPorPagarService(){}
@@ -47,5 +47,5 @@ public class CuentasPorPagarService {
                             return cuentasPorPagarRepository.save(cuentasPorPagar);
                         }
                 ).get();
-    }
+    } */
 }
