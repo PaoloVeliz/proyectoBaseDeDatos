@@ -8,7 +8,5 @@ import java.util.List;
 
 @Repository
 public interface DetalleCompraRepository extends JpaRepository<DetalleCompra,Integer> {
-    // List<DetalleCompra> findBycomprasId(String comprasId);
-
 
 }

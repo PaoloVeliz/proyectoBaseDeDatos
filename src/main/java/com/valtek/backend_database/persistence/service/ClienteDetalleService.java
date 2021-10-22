@@ -1,5 +1,6 @@
 package com.valtek.backend_database.persistence.service;
 
+import com.valtek.backend_database.domain.dto.DetalleClienteDTO;
 import com.valtek.backend_database.domain.dto.RequestDTO;
 import com.valtek.backend_database.domain.repository.DetalleClienteRepository;
 import com.valtek.backend_database.persistence.entity.DetalleCliente;
@@ -9,6 +10,7 @@ import com.valtek.backend_database.persistence.validate.Validate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,8 +28,12 @@ public class ClienteDetalleService {
         return detalleClienteRepository.save(detalleCliente);
     }
 
-    public List<DetalleCliente> getAll () {
-        return detalleClienteRepository.findAll();
+    public List<DetalleClienteDTO> getAll () {
+        List<DetalleClienteDTO> detalleClienteDTOS = new ArrayList<>();
+        detalleClienteRepository.findAll().forEach(detalleCliente -> {
+            detalleClienteDTOS.add(customerTypeFillUtils.fillCustomerTypeDTO(detalleCliente));
+        });
+        return detalleClienteDTOS;
     }
 
     public void remove(Integer id) throws BusinessException {

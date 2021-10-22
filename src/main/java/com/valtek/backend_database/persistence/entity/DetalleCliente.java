@@ -21,7 +21,7 @@ public class DetalleCliente {
     @Column(name = "discount")
     private Integer descuento;
 
-    @OneToMany(mappedBy = "detalleCliente", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "detalleCliente", fetch = FetchType.LAZY)
     @JsonIgnoreProperties("detalleCliente")
     private List<Cliente> clienteList;
 

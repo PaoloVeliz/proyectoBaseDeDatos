@@ -7,7 +7,10 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "customer")
+@Table(name = "customer", indexes = {
+        @Index(name = "c_name_index", columnList = "name"),
+        @Index(name = "c_lastname_index", columnList = "lastname")
+})
 public class Cliente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,7 +28,7 @@ public class Cliente {
     @Column(name = "address")
     private String direccion;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "customer_type_id", referencedColumnName = "id")
     @JsonIgnoreProperties("clienteList")
     private DetalleCliente detalleCliente;
@@ -34,11 +37,11 @@ public class Cliente {
     @JsonIgnoreProperties("cliente")
     private List<Telefono> telefonoList;
 
-    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "cliente")
     @JsonIgnoreProperties("cliente")
     private List<Venta> ventaList;
 
-    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "cliente")
     @JsonIgnoreProperties("cliente")
     private List<CuentasPorCobrar> cuentasPorCobrarList;
 

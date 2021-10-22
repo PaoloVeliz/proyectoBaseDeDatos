@@ -14,6 +14,6 @@ public interface DetalleClienteRepository extends JpaRepository<DetalleCliente,I
     @Query(value = "Select ct from customer_type ct WHERE ct.id::integer = :id;", nativeQuery = true)
     Optional<DetalleCliente> findWithIntegerId(@Param("id") Integer id);
 
-    // @Query(value = "Select ct from customer_type ct;", nativeQuery = true)
-    // List<DetalleCliente> findAll();
+    @Query(value = "SELECT id, discount, name FROM customer_type", nativeQuery = true)
+    List<DetalleCliente> findAllClean();
 }

@@ -11,6 +11,15 @@ import java.util.List;
 public class DetalleClienteDTO {
     private String nombre;
     private Integer descuento;
+    private Integer id;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getNombre() {
         return nombre;
@@ -27,4 +36,6 @@ public class DetalleClienteDTO {
     public void setDescuento(Integer descuento) {
         this.descuento = descuento;
     }
+
+
 }

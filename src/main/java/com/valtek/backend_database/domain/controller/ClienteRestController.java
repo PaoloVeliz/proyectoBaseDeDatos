@@ -1,5 +1,6 @@
 package com.valtek.backend_database.domain.controller;
 
+import com.valtek.backend_database.domain.dto.DetalleClienteDTO;
 import com.valtek.backend_database.domain.dto.RequestDTO;
 import com.valtek.backend_database.persistence.entity.Cliente;
 import com.valtek.backend_database.persistence.entity.DetalleCliente;
@@ -7,6 +8,7 @@ import com.valtek.backend_database.persistence.service.ClienteDetalleService;
 import com.valtek.backend_database.persistence.service.ClienteService;
 import com.valtek.backend_database.persistence.validate.BusinessException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +16,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "https://base-de-datos-frontend-14gczqhqb-tatobig.vercel.app/")
+// @CrossOrigin(origins = "https://base-de-datos-frontend-14gczqhqb-tatobig.vercel.app/")
+@CrossOrigin(origins = "http://localhost:3000/")
 @RequestMapping("/customers")
 public class ClienteRestController {
 
@@ -24,9 +27,14 @@ public class ClienteRestController {
     @Autowired
     ClienteDetalleService clienteDetalleService;
 
-    @GetMapping("/")
+    /* @GetMapping("/")
     List<Cliente> getCustomers() {
         return clienteService.getAllCostumers();
+    } */
+
+    @GetMapping("/pageable")
+    List<Cliente> getClientePageable(@RequestParam int page, @RequestParam int size) {
+        return clienteService.findPage(PageRequest.of(page, size));
     }
 
     @PostMapping("/")
@@ -40,7 +48,7 @@ public class ClienteRestController {
     }
 
     @GetMapping("/type/")
-    List<DetalleCliente> getCustomerType () {
+    List<DetalleClienteDTO> getCustomerType () {
         return clienteDetalleService.getAll();
     }
 

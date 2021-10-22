@@ -6,7 +6,10 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "providers")
+@Table(name = "providers", indexes = {
+        @Index(name = "p_name_index", columnList = "names"),
+        @Index(name = "p_lastname_index", columnList = "lastnames")
+})
 public class Proveedores {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

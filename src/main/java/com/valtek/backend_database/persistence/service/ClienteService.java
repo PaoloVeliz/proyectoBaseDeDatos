@@ -14,6 +14,8 @@ import com.valtek.backend_database.persistence.validate.Validate;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -61,8 +63,12 @@ public class ClienteService {
         return savedCustomer;
     }
 
-    public List<Cliente> getAllCostumers(){
+    /* public List<Cliente> getAllCostumers(){
         return clienteRepository.findAll();
+    } */
+
+    public List<Cliente> findPage(PageRequest pageRequest) {
+        return clienteRepository.findAll(pageRequest).getContent();
     }
 
     public void remove(Integer id) throws BusinessException {

@@ -13,4 +13,12 @@ public class CustomerTypeFillUtils {
         detalleCliente.setDescuento(detalleClienteDTO.getDescuento());
         return detalleCliente;
     }
+
+    public DetalleClienteDTO fillCustomerTypeDTO(DetalleCliente detalleCliente) {
+        DetalleClienteDTO detalleClienteDTO = new DetalleClienteDTO();
+        detalleClienteDTO.setDescuento(detalleCliente.getDescuento());
+        detalleClienteDTO.setNombre(detalleCliente.getNombre());
+        detalleClienteDTO.setId(detalleCliente.getId());
+        return detalleClienteDTO;
+    }
 }
