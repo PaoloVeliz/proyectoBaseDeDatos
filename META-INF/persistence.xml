@@ -1,0 +1,34 @@
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.0">
+    <persistence-unit name="cluster" transaction-type="RESOURCE_LOCAL">
+        <provider>
+            org.apache.openjpa.persistence.PersistenceProviderImpl
+        </provider>
+        <class>Cliente</class>
+        <class>Compra</class>
+        <class>CuentasPorCobrar</class>
+        <class>CuentasPorPagar</class>
+        <class>DetalleCliente</class>
+        <class>DetalleCompra</class>
+        <class>DetalleUsuario</class>
+        <class>DetalleVenta</class>
+        <class>Inventario</class>
+        <class>Proveedores</class>
+        <class>Telefono</class>
+        <class>Usuario</class>
+        <class>Venta</class>
+        <properties>
+            <property name="openjpa.jdbc.SynchronizeMappings" value="buildSchema" />
+            <property name="openjpa.ConnectionDriverName"
+                      value="com.mysql.jdbc.Driver" />
+            <property name="openjpa.ConnectionURL"
+                      value="jdbc:mysql://localhost:3306/cluster" />
+            <property name="openjpa.ConnectionUserName" value="root" />
+            <property name="openjpa.ConnectionPassword" value="" />
+            <property name="openjpa.BrokerFactory" value="ndb" />
+            <property name="openjpa.jdbc.DBDictionary" value="TableType=ndb"/>
+            <property name="openjpa.ndb.connectString" value="localhost:1186" />
+            <property name="openjpa.ndb.database" value="cluster" />
+        </properties>
+    </persistence-unit>
+</persistence>

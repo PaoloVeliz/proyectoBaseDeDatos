@@ -1,10 +1,10 @@
-package com.valtek.backend_database;
+package com.basededatos2.springboot.proyectobasededatos2;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class BackendPartApplicationTests {
+class ProyectoBasededatos2ApplicationTests {
 
 	@Test
 	void contextLoads() {
